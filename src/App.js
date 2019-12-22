@@ -1,68 +1,73 @@
-import React, {useEffect, useState} from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import GoogleAuth from './components/admin'
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import GoogleAuth from "./components/admin";
 import * as axios from "axios";
-import * as Cookie from 'js-cookie'
+import * as Cookie from "js-cookie";
 
 export default function App() {
-  const [signedIn, setSignedIn] = useState(false)
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
-    checkAccessToken()
+    checkAccessToken();
   }, []);
 
   async function checkAccessToken() {
-    const accessToken = Cookie.get('token');
+    const accessToken = Cookie.get("token");
     if (accessToken !== undefined) {
       try {
-        await axios.get(`https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`)
-        setSignedIn(true)
+        await axios.get(
+          `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`
+        );
+        setSignedIn(true);
       } catch (e) {
-        Cookie.remove('token')
-        setSignedIn(false)
+        Cookie.remove("token");
+        setSignedIn(false);
       }
     }
   }
 
-  const onSignInResponse = async (data) => {
-    Cookie.set('token', data.tokenObj.access_token)
-    setSignedIn(true)
-  }
+  const onSignInResponse = async data => {
+    Cookie.set("token", data.tokenObj.access_token);
+    setSignedIn(true);
+  };
 
-  const onSignOutResponse = async (data) => {
-    Cookie.remove('token')
-    setSignedIn(false)
-  }
+  const onSignOutResponse = async data => {
+    Cookie.remove("token");
+    setSignedIn(false);
+  };
 
   let routes;
-  if(!signedIn) {
-    routes =  <Switch>
-      <Route path="/about">
-        <About />
-      </Route>
-      <Route path="/users">
-        <Users />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
+  if (!signedIn) {
+    routes = (
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/users">
+          <Users />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    );
   } else {
-    routes = <Switch>
-      <Route path="/admin">
-        <About />
-      </Route>
-    </Switch>
+    routes = (
+      <Switch>
+        <Route path="/admin">
+          <About />
+        </Route>
+      </Switch>
+    );
   }
 
   return (
     <Router>
-      <GoogleAuth signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}/>
+      <GoogleAuth
+        signedIn={signedIn}
+        onSignOutResponse={onSignOutResponse}
+        onSignInResponse={onSignInResponse}
+      />
       <div>
         <nav>
           <ul>
@@ -77,9 +82,6 @@ export default function App() {
             </li>
           </ul>
         </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         {routes}
       </div>
     </Router>
