@@ -10,6 +10,7 @@ export default function App() {
   useEffect(() => {
     checkAccessToken();
   }, []);
+  
 
   async function checkAccessToken() {
     const accessToken = Cookie.get("token");
