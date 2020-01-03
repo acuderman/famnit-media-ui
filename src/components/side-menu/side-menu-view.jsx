@@ -16,7 +16,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { categories } from './data'
+import { categories, adminCategories } from './data'
 import { withRouter } from 'react-router';
 
 
@@ -84,8 +84,9 @@ function ResponsiveDrawer(props) {
   };
 
   const generateMenuItems = (children) => {
+    const selectedCategories = props.signedIn ? adminCategories : categories;
     const menuItems = []
-    const loopElements = children === undefined ? categories : children
+    const loopElements = children === undefined ? selectedCategories : children
     loopElements.forEach((category, i) => {
       if (category.children.length === 0) {
         menuItems.push(

@@ -7,3 +7,12 @@ h1 {
     flex-flow: column;
     justify-content: center;
 }
+
+.video-wrapper {
+    display: flex;
+    flex-flow: row;
+}
+
+.video-delimeter {
+    width: 20px;
+}

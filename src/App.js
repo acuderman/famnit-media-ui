@@ -4,10 +4,13 @@ import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
 import AdminPage from './pages/admin/admin-page'
 import UploadPage from './pages/admin/upload-page'
+import VideosPage from './pages/admin/videos'
+import EditVideoPage from './pages/admin/edit-video'
 import { getAccessToken, verifyAccessToken } from './helpers/authentication'
 
 export default function App() {
-  const [signedIn, setSignedIn] = useState(true);
+  const [signedIn, setSignedIn] = useState(false);
+  const [tokenChecked, setTokenChecked] = useState(false);
 
   useEffect(() => {
     checkAccessToken();
@@ -23,6 +26,7 @@ export default function App() {
         Cookie.remove("token");
         setSignedIn(false);
       }
+      setTokenChecked(true)
     }
   }
 
@@ -73,19 +77,28 @@ export default function App() {
         <Route path="/upload">
           <UploadPage />
         </Route>
+        <Route path="/videos">
+          <VideosPage />
+        </Route>
+        <Route path="/edit/:id"
+          render={(props)=> <EditVideoPage match={props.match} />} />
         <Route path="/">
           <Home />
         </Route>
       </Switch>
     );
   }
+  let render = <span />;
 
-  let render =
+  if(tokenChecked) {
+    render =
     <Router>
-        <ResponsiveDrawer >
+        <ResponsiveDrawer signedIn={signedIn}>
       {routes}
       </ResponsiveDrawer>
     </Router>
+  }
+
 
   /*if(document.location.href.endsWith('/admin')) {
     render = 
@@ -128,15 +141,4 @@ function Admin() {
 
 function Users() {
   return <h2>Users</h2>;
-}
-
-const Button = (props) => {
-
-  const onClick = () => {
-    props.onButtonClick('kliknn sm bil')
-  }
-
-  return ( 
-    <button onClick={onClick}> {props.text} </button>
-  )
 }
