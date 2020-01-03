@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@import './pages/admin/upload.css';
+@import './components/textfield/styles.css';
+@import './components/submit-button/styles.css';
+@import './components/error-box/styles.css';

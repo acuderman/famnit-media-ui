@@ -1,5 +1,5 @@
 import React from "react";
-import GoogleAuth from "../components/admin";
+import GoogleAuth from "../../components/admin";
 import {
   AppBar,
   Toolbar,

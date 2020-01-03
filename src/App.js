@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useParams } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import * as axios from "axios";
 import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
-import AdminPage from './pages/admin-page'
+import AdminPage from './pages/admin/admin-page'
+import UploadPage from './pages/admin/upload-page'
 import { getAccessToken, verifyAccessToken } from './helpers/authentication'
 
 export default function App() {
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
 
   useEffect(() => {
     checkAccessToken();
@@ -69,6 +69,9 @@ export default function App() {
       <Switch>
         <Route path="/admin">
           <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
+        </Route>
+        <Route path="/upload">
+          <UploadPage />
         </Route>
         <Route path="/">
           <Home />
