@@ -26,7 +26,7 @@ const AdminPage = props => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div style={{    height: "100%", display: "flex", justifyContent: "center", flexFlow: "column",alignItems: "center"}}>
       ADMIN
       <br />
       <GoogleAuth

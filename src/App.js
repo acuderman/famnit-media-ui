@@ -50,6 +50,10 @@ export default function App() {
         <Route exact path="/">
           <Home />
         </Route>
+        
+        <Route exact path="/admin">
+          <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
+        </Route>
 
         <Route 
         exact path="/:category"
@@ -58,10 +62,7 @@ export default function App() {
         <Route 
         exact path="/:category/:sub_category"
         render={(props)=> <SubCategory match={props.match} />} />
-
-        <Route exact path="/admin">
-          <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
-        </Route>
+      
       </Switch>
     );
   } else {
@@ -125,15 +126,4 @@ function Admin() {
 
 function Users() {
   return <h2>Users</h2>;
-}
-
-const Button = (props) => {
-
-  const onClick = () => {
-    props.onButtonClick('kliknn sm bil')
-  }
-
-  return ( 
-    <button onClick={onClick}> {props.text} </button>
-  )
 }

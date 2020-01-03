@@ -18,7 +18,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { categories } from './data'
 import { withRouter } from 'react-router';
-
+import './style.css';
+import eng_flag from './eng_flag.png';
+import slo_flag from './slo_flag.png';
 
 const drawerWidth = 240;
 
@@ -48,6 +50,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    height:"calc(90vh)"
   },
   listRoot: {
     width: '100%',
@@ -141,9 +144,16 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Responsive drawer
+          <Typography variant="h6" noWrap
+          style={{fontFamily:"Russo One" ,fontSize:25,cursor:"pointer"}}  onClick={()=>changeUrl('/')}>
+            Famnit Tutorials
           </Typography>
+
+          <div style={{position: 'absolute', right: 10}}>
+             <img style={{marginRight:5, width:40}} src={slo_flag}/>
+             <img style={{ width:40}} src={eng_flag}  />
+          </div>
+
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
