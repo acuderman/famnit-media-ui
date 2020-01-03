@@ -1,12 +1,13 @@
-import React, { useEffect, useState, useParams } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import * as axios from "axios";
 import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
-import AdminPage from './pages/admin-page'
+import AdminPage from './pages/admin/admin-page'
+import UploadPage from './pages/admin/upload-page'
+import { getAccessToken, verifyAccessToken } from './helpers/authentication'
 
 export default function App() {
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
 
   useEffect(() => {
     checkAccessToken();
@@ -16,9 +17,7 @@ export default function App() {
     const accessToken = Cookie.get("token");
     if (accessToken !== undefined) {
       try {
-        await axios.get(
-          `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`
-        );
+        await verifyAccessToken(accessToken)
         setSignedIn(true);
       } catch (e) {
         Cookie.remove("token");
@@ -28,7 +27,10 @@ export default function App() {
   }
 
   const onSignInResponse = async (data) => {
-    Cookie.set("token", data.tokenObj.access_token);
+    console.log(data)
+    const { tokenObj } = data
+    const token = await getAccessToken(tokenObj.id_token, tokenObj.access_token)
+    Cookie.set("token", token);
     setSignedIn(true);
   };
 
@@ -50,7 +52,9 @@ export default function App() {
         <Route exact path="/">
           <Home />
         </Route>
-
+        <Route path="/admin">
+          <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
+        </Route>
         <Route 
         exact path="/:category"
         render={(props)=> <Category match={props.match} />} />
@@ -58,10 +62,6 @@ export default function App() {
         <Route 
         exact path="/:category/:sub_category"
         render={(props)=> <SubCategory match={props.match} />} />
-
-        <Route exact path="/admin">
-          <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
-        </Route>
       </Switch>
     );
   } else {
@@ -69,6 +69,9 @@ export default function App() {
       <Switch>
         <Route path="/admin">
           <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
+        </Route>
+        <Route path="/upload">
+          <UploadPage />
         </Route>
         <Route path="/">
           <Home />

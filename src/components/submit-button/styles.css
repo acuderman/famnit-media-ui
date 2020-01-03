@@ -1,0 +1,11 @@
+
+.submit-button {
+    margin-top: 20px;
+    width: 100px;
+ }
+
+ .circular-progress {
+     color:white !important;
+     height: 25px !important;
+     width: 25px !important;
+ }
