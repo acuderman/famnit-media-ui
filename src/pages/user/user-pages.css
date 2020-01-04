@@ -1,4 +1,7 @@
 .videoWrapper {
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
 	position: relative;
     padding-bottom: 56.25%; /* 16:9 */
 	padding-top: 25px;
@@ -7,9 +10,8 @@
 .videoWrapper iframe {
 	position: absolute;
 	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+	width: 90%;
+	height: 90%;
 }
 
   .split-40px {
@@ -29,10 +31,29 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.split-10px {
+    width: 100%;;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 
-  .comment {
-      background-color: #D3D3D3;
-  }
+.video-navigation-buttons {
+    text-decoration: none;
+    background-color: #E8E8E8;
+    padding: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 200px;
+    text-align: center;
+    color: black;
+    font-size: 20px;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
 
   .post-comment {
       width: 75%

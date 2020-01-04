@@ -7,6 +7,9 @@ import * as axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import * as Cookies from 'js-cookie';
 import SendIcon from '@material-ui/icons/Send';
+import {
+    Link
+} from 'react-router-dom';
 
 const UserVideosPage = props => {
   const { video_id } = props.match.params;
@@ -22,7 +25,7 @@ const UserVideosPage = props => {
 
   const getComments = async () => {
     const comments = await axios.get(
-      `${GOOGLE_API_BASE_URL}/commentThreads?key=${YOUTUBE_API_KEY}&textFormat=plainText&part=snippet&videoId=${video_id}&maxResults=50`
+      `${GOOGLE_API_BASE_URL}/commentThreads?key=${YOUTUBE_API_KEY}&textFormat=plainText&part=snippet&videoId=${video_id}&maxResults=100`
     );
     setComments(comments.data.items);
   };
@@ -92,7 +95,7 @@ const UserVideosPage = props => {
   
   const commentInput = access_token !== undefined 
   ? <div className='post-comment'><TextField value={comment} style={{ width: '90%' }} onChange={onCommentChange} id="standard-basic" label="Add a comment" /> <span className='send-icon'><SendIcon onClick={onSubmit}/></span> </div>
-  : <div className='comment'> <p> if you want to comment, you need to log in </p> <GoogleAuth onSignInResponse={onAuthResponse} /> </div>
+  : <div className='comment'> <h4> if you want to comment, you need to log in </h4> <GoogleAuth onSignInResponse={onAuthResponse} /> </div>
 
   return (
     <div className="watch-videos">
@@ -102,14 +105,19 @@ const UserVideosPage = props => {
           height="349"
           src={`http://www.youtube.com/embed/${video_id}`}
           frameborder="0"
-          allowfullscreen
+          allowfullscreen='allowfullscreen'
         ></iframe>
       </div>
+      <div className='nav-buttons'>
+      <Link className='video-navigation-buttons' to={''}>Previous video</Link>
+      <Link className='video-navigation-buttons' to={''}>Next video</Link>
+        </div>
         <div className={'split-40px'}> </div>
       <h2>{title}</h2>
       <h3>{description}</h3>
       <div className={'split-80px'}> </div>
       <h2>Comments</h2>
+      {commentInput}
       {comments.map(comment => {
         const snippet = comment.snippet.topLevelComment.snippet;
         return (
@@ -120,7 +128,6 @@ const UserVideosPage = props => {
         );
       })}
       <div style={{ marginBottom: '20px' }} />
-      {commentInput}
       <Snackbar open={successSnackbar.length > 0} onCloseEvent={deleteSnakbars} text={successSnackbar} />
       <Snackbar error open={errorSnackbar.length > 0} onCloseEvent={deleteSnakbars} text={errorSnackbar} />
     </div>
