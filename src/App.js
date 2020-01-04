@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
+import CategoryPage from "./pages/category-page";
+import {BASE_URL} from './config'
 import AdminPage from './pages/admin/admin-page'
 import UploadPage from './pages/admin/upload-page'
 import VideosPage from './pages/admin/videos'
@@ -67,8 +69,7 @@ export default function App() {
           render={(props)=> <UserVideosPage match={props.match} />} />
         <Route 
         exact path="/:category"
-        render={(props)=> <Category match={props.match} />} />
-
+        render={(props)=> <CategoryPage match={props.match} />} />
         <Route 
         exact path="/:category/:sub_category"
         render={(props)=> <SubCategory match={props.match} />} />
