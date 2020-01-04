@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const SubmitButton = props => {
   return (
     <div className={'submit-button'}>
-        <Button style={{ width: 100 }} {...props} variant="contained" color="primary">
+        <Button style={{ width: 350 }} {...props} variant="contained" color="primary">
             {props.inProgress ? <CircularProgress className='circular-progress' /> : 'Submit'}
         </Button>
     </div>
