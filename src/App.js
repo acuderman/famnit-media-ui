@@ -5,7 +5,8 @@ import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
 import AdminPage from './pages/admin-page'
 import {BASE_URL} from './config'
-import  { Redirect } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
+import CategoryPage from "./pages/category-page";
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
@@ -32,8 +33,7 @@ export default function App() {
   const onSignInResponse = async (data) => {
     Cookie.set("token", data.tokenObj.access_token);
     setSignedIn(true)
-    window.location.href=`${BASE_URL}/videos`
-    return <Redirect to='/videos'  />
+    window.location="localhost:3000"
   };
 
   const onSignOutResponse = async (data) => {
@@ -60,9 +60,9 @@ export default function App() {
         </Route>
 
         <Route 
-        exact path="/:category"
-        render={(props)=> <Category match={props.match} />} />
-
+        exact path="/:category">
+            <CategoryPage/>
+        </Route>
         <Route 
         exact path="/:category/:sub_category"
         render={(props)=> <SubCategory match={props.match} />} />

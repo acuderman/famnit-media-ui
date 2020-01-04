@@ -161,14 +161,16 @@ function ResponsiveDrawer(props) {
             Famnit Tutorials
           </Typography>
 
-          <div style={{ position: "absolute", right: 50 }}>
+          <div style={{position: "absolute", right: 48 }}>
             <h1
               style={{
+                cursor: "pointer",
                 marginRight: 5,
                 backgroundColor: "white",
                 color: "#3f51b5",
                 fontSize: 12,
                 textAlign: "center",
+                fontFamily:"Rubik",
                 paddingTop: "1px",
                 paddingBottom: "1px",
                 paddingLeft: "2px",
@@ -182,11 +184,13 @@ function ResponsiveDrawer(props) {
           <div style={{ position: "absolute", right: 15 }}>
             <h1
               style={{
+                cursor: "pointer",
                 marginRight: 5,
                 backgroundColor: "white",
                 color: "#3f51b5",
                 fontSize: 12,
                 textAlign: "center",
+                fontFamily:"Rubik",
                 paddingTop: "1px",
                 paddingBottom: "1px",
                 paddingLeft: "2px",
