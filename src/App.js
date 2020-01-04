@@ -4,6 +4,8 @@ import * as axios from "axios";
 import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
 import AdminPage from './pages/admin-page'
+import {BASE_URL} from './config'
+import  { Redirect } from 'react-router-dom'
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
@@ -29,7 +31,9 @@ export default function App() {
 
   const onSignInResponse = async (data) => {
     Cookie.set("token", data.tokenObj.access_token);
-    setSignedIn(true);
+    setSignedIn(true)
+    window.location.href=`${BASE_URL}/videos`
+    return <Redirect to='/videos'  />
   };
 
   const onSignOutResponse = async (data) => {
@@ -50,7 +54,7 @@ export default function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        
+
         <Route exact path="/admin">
           <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
         </Route>
