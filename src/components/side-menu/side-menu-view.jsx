@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -18,45 +17,47 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { categories, adminCategories } from './data'
 import { withRouter } from 'react-router';
+import "./fonts.css";
 
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
+    display: "flex"
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
-      flexShrink: 0,
-    },
+      flexShrink: 0
+    }
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 1
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    height: "90vh"
   },
   listRoot: {
-    width: '100%',
+    width: "100%",
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
   },
   nested: {
-    paddingLeft: theme.spacing(2),
-  },
+    paddingLeft: theme.spacing(2)
+  }
 }));
 
 function ResponsiveDrawer(props) {
@@ -64,20 +65,20 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [nestedOpen, setNestedOpen] = React.useState([])
-  const [force, setForce] = React.useState(0)
-
+  const [nestedOpen, setNestedOpen] = React.useState([]);
+  const [force, setForce] = React.useState(0);
 
   const handleClick = (position, url) => {
-    nestedOpen[position] = nestedOpen[position] === undefined ? true : !nestedOpen[position]
-    setNestedOpen(nestedOpen)
-    changeUrl(url)
-    setForce(force + 1)
+    nestedOpen[position] =
+      nestedOpen[position] === undefined ? true : !nestedOpen[position];
+    setNestedOpen(nestedOpen);
+    changeUrl(url);
+    setForce(force + 1);
   };
 
-  const changeUrl = (url) => {
-    props.history.push(url)
-  }
+  const changeUrl = url => {
+    props.history.push(url);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -90,29 +91,40 @@ function ResponsiveDrawer(props) {
     loopElements.forEach((category, i) => {
       if (category.children.length === 0) {
         menuItems.push(
-            <ListItem key={i} button onClick={() => {changeUrl(category.to)}}>
-              <ListItemText primary={category.category} />
-            </ ListItem>
-        )
+          <ListItem
+            key={i}
+            button
+            onClick={() => {
+              changeUrl(category.to);
+            }}
+          >
+            <ListItemText primary={category.category} />
+          </ListItem>
+        );
       } else {
         menuItems.push(
           <span key={i}>
-              <ListItem  button onClick={() => handleClick(i, category.to)}>
-                <ListItemText primary={category.category} />
-                {nestedOpen[i] ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-            <Collapse in={nestedOpen[i]} className={classes.nested} timeout="auto" unmountOnExit>
+            <ListItem button onClick={() => handleClick(i, category.to)}>
+              <ListItemText primary={category.category} />
+              {nestedOpen[i] ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse
+              in={nestedOpen[i]}
+              className={classes.nested}
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 {generateMenuItems(category.children)}
               </List>
             </Collapse>
           </span>
-        )
+        );
       }
-    })
+    });
 
-    return menuItems
-  }
+    return menuItems;
+  };
 
   const drawer = (
     <div>
@@ -142,9 +154,55 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Responsive drawer
+          <Typography
+            variant="h6"
+            noWrap
+            style={{ fontFamily: "Russo One", fontSize: 25, cursor: "pointer" }}
+            onClick={() => changeUrl("/")}
+          >
+            Famnit Tutorials
           </Typography>
+
+          <div style={{position: "absolute", right: 48 }}>
+            <h1
+              style={{
+                cursor: "pointer",
+                marginRight: 5,
+                backgroundColor: "white",
+                color: "#3f51b5",
+                fontSize: 12,
+                textAlign: "center",
+                fontFamily:"Rubik",
+                paddingTop: "1px",
+                paddingBottom: "1px",
+                paddingLeft: "2px",
+                paddingRight: "2px",
+                borderRadius: "2px"
+              }}
+            >
+              SLO
+            </h1>
+          </div>
+          <div style={{ position: "absolute", right: 15 }}>
+            <h1
+              style={{
+                cursor: "pointer",
+                marginRight: 5,
+                backgroundColor: "white",
+                color: "#3f51b5",
+                fontSize: 12,
+                textAlign: "center",
+                fontFamily:"Rubik",
+                paddingTop: "1px",
+                paddingBottom: "1px",
+                paddingLeft: "2px",
+                paddingRight: "2px",
+                borderRadius: "2px"
+              }}
+            >
+              ENG
+            </h1>
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -153,14 +211,14 @@ function ResponsiveDrawer(props) {
           <Drawer
             container={container}
             variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            anchor={theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
-              paper: classes.drawerPaper,
+              paper: classes.drawerPaper
             }}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true // Better open performance on mobile.
             }}
           >
             {drawer}
@@ -169,7 +227,7 @@ function ResponsiveDrawer(props) {
         <Hidden xsDown implementation="css">
           <Drawer
             classes={{
-              paper: classes.drawerPaper,
+              paper: classes.drawerPaper
             }}
             variant="permanent"
             open
