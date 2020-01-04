@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles({
   card: {
     backgroundColor: "#F5F5F5",
-    width: "50%",
+    width: '100%',
     marginBottom: 20.
   },
   media: {

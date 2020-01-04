@@ -5,9 +5,12 @@ import ResponsiveDrawer from './components/side-menu'
 import AdminPage from './pages/admin/admin-page'
 import UploadPage from './pages/admin/upload-page'
 import VideosPage from './pages/admin/videos'
+import CategoriesAddAdminPage from './pages/admin/categories-add'
+import CategoriesEditPage from './pages/admin/categories-edit'
 import EditVideoPage from './pages/admin/edit-video'
 import UserVideosPage from './pages/user/user-page-videos'
 import { getAccessToken, verifyAccessToken } from './helpers/authentication'
+import { BASE_URL } from "./config";
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
@@ -27,16 +30,16 @@ export default function App() {
         Cookie.remove("token");
         setSignedIn(false);
       }
-      setTokenChecked(true)
     }
+    setTokenChecked(true)
   }
 
   const onSignInResponse = async (data) => {
-    console.log(data)
     const { tokenObj } = data
     const token = await getAccessToken(tokenObj.id_token, tokenObj.access_token)
     Cookie.set("token", token);
     setSignedIn(true);
+    window.location.href = `${BASE_URL}/videos`
   };
 
   const onSignOutResponse = async (data) => {
@@ -80,6 +83,15 @@ export default function App() {
         <Route path="/upload">
           <UploadPage />
         </Route>
+        <Route path="/categories/add">
+          <CategoriesAddAdminPage />
+        </Route>
+        <Route path="/categories/edit">
+          <CategoriesEditPage />
+        </Route>
+        <Route path="/categories/remove">
+          <VideosPage />
+        </Route>
         <Route path="/videos">
           <VideosPage />
         </Route>
@@ -93,14 +105,14 @@ export default function App() {
   }
   let render = <span />;
 
-  // if(tokenChecked) {
+  if(tokenChecked) {
     render =
     <Router>
         <ResponsiveDrawer signedIn={signedIn}>
       {routes}
       </ResponsiveDrawer>
     </Router>
-  //}
+  }
 
 
   /*if(document.location.href.endsWith('/admin')) {

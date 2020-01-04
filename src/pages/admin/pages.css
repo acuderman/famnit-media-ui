@@ -16,3 +16,12 @@ h1 {
 .video-delimeter {
     width: 20px;
 }
+
+.sub-heading {
+    margin-bottom: 0px;
+}
+
+.edit-category-p {
+    margin-top: 20px;
+    margin-bottom: -10px;
+}
