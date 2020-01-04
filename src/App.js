@@ -28,8 +28,8 @@ export default function App() {
         Cookie.remove("token");
         setSignedIn(false);
       }
-      setTokenChecked(true)
     }
+    setTokenChecked(true)
   }
 
   const onSignInResponse = async (data) => {
@@ -63,12 +63,7 @@ export default function App() {
         </Route>
         <Route 
         exact path="/:category"
-        render={(props)=> <Category match={props.match} />} />
-
-        <Route 
-        exact path="/:category">
-            <CategoryPage/>
-        </Route>
+        render={(props)=> <CategoryPage match={props.match} />} />
         <Route 
         exact path="/:category/:sub_category"
         render={(props)=> <SubCategory match={props.match} />} />
