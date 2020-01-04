@@ -6,6 +6,7 @@ import AdminPage from './pages/admin/admin-page'
 import UploadPage from './pages/admin/upload-page'
 import VideosPage from './pages/admin/videos'
 import EditVideoPage from './pages/admin/edit-video'
+import UserVideosPage from './pages/user/user-page-videos'
 import { getAccessToken, verifyAccessToken } from './helpers/authentication'
 
 export default function App() {
@@ -59,6 +60,8 @@ export default function App() {
         <Route path="/admin">
           <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
         </Route>
+        <Route path="/watch/:video_id"
+          render={(props)=> <UserVideosPage match={props.match} />} />
         <Route 
         exact path="/:category"
         render={(props)=> <Category match={props.match} />} />
@@ -90,14 +93,14 @@ export default function App() {
   }
   let render = <span />;
 
-  if(tokenChecked) {
+  // if(tokenChecked) {
     render =
     <Router>
         <ResponsiveDrawer signedIn={signedIn}>
       {routes}
       </ResponsiveDrawer>
     </Router>
-  }
+  //}
 
 
   /*if(document.location.href.endsWith('/admin')) {
@@ -115,7 +118,7 @@ export default function App() {
 function Home() {
   return (<div>
     <h2>Home</h2>
-    <Link to='/admin'>Admin</Link>
+      <Link to='/admin'>Admin</Link>
     </div>);
 }
 
