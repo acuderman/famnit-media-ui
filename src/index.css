@@ -20,3 +20,4 @@ code {
 @import './components/textfield/styles.css';
 @import './components/submit-button/styles.css';
 @import './components/error-box/styles.css';
+@import './pages/user/user-pages.css';

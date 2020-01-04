@@ -11,6 +11,9 @@ const VideosPage = props => {
         <div className='video-delimeter' />
         <VideoTile id={'2'} title={'title'} description={'description'} />
       </div>
+      <div className='video-wrapper'>
+        <VideoTile id={'1'} title={'title'} description={'description'} />
+      </div>
     </div>
   );
 };

@@ -8,6 +8,10 @@ import * as axios from 'axios';
 import { API_BASE_URI, BASE_URL } from '../../config'
 import { getToken } from '../../helpers/get-token'
 import CustomizedSnackbars from '../../components/snackbar/index'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 const UploadPage = (props) => {
@@ -19,6 +23,9 @@ const UploadPage = (props) => {
     const [submitProgress, setSubmitInProgress] = React.useState(false);
     const [snackbarSuccessText, setSnackbarSuccessText] = React.useState('')
     const [snackbarErrorText, setSnackbarErrorText] = React.useState('')
+
+    const [category, setCategory] = React.useState('')
+    const [subCategory, setSubCategory] = React.useState('')
 
     const onChange = (data) => {
         setFiles(data)
@@ -45,7 +52,7 @@ const UploadPage = (props) => {
         }
         setSubmitInProgress(true);
         setSnackbarSuccessText('');
-        if(files.length === 0 || title.length === 0 || description.length === 0) {
+        if(files.length === 0 || title.length === 0 || description.length === 0 || category.length === 0 || subCategory.length === 0) {
             setSubmitInProgress(false)
             setSnackbarErrorText('All fields are required');
             setSubmittedError(true)
@@ -53,7 +60,7 @@ const UploadPage = (props) => {
             setTimeout(() => {
                 setSnackbarSuccessText('');
                 setSnackbarErrorText('');
-            }, 5000)
+            }, 10000)
             return
         }
         setSnackbarErrorText('');
@@ -61,6 +68,8 @@ const UploadPage = (props) => {
         formData.append('file', files[0]);
         formData.append('title', title);
         formData.append('description', description);
+        formData.append('category', category);
+        formData.append('subCategory', subCategory);
 
         try {
             await axios.post(`${API_BASE_URI}/upload`, formData, { headers: { authorization: `Bearer ${getToken()}` }})
@@ -98,6 +107,43 @@ const UploadPage = (props) => {
         />
         <TextField error={submittedError && title.length === 0 } value={title} className='title' onChange={onTitleChange} id="outlined-basic" label="Title" fullWidth variant="outlined" />
         <TextField error={submittedError && description.length === 0 } value={description} id="description" onChange={onDescriptionChange} multiline rows={6} label="Description" fullWidth variant="outlined" />
+        <div className='split-20px'> </div>
+
+        <FormControl variant="outlined" >
+        <InputLabel id="dropdown">
+          Category
+        </InputLabel>
+        <Select
+          labelId="dropdown"
+          id="dropdown"
+          labelWidth={70}
+          value={category}
+          error={submittedError && category.length === 0 }
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+      <div className='split-20px'> </div>
+      <FormControl variant="outlined" >
+        <InputLabel id="dropdown">
+          Sub Category
+        </InputLabel>
+        <Select
+           error={submittedError && subCategory.length === 0 }
+          labelId="dropdown"
+          id="dropdown"
+          value={subCategory}
+          labelWidth={90}
+          onChange={(e) => setSubCategory(e.target.value)}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
         <SubmitButton inProgress={submitProgress} onClick={onSubmit} />
         <CustomizedSnackbars onCloseEvent={onSnackbarClose} open={snackbarSuccessText.length > 0} text={snackbarSuccessText} />
         <CustomizedSnackbars onCloseEvent={onSnackbarClose} open={snackbarErrorText.length > 0} error text={snackbarErrorText} />

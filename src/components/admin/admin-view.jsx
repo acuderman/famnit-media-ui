@@ -8,7 +8,7 @@ const GoogleAuth = (props) => {
         return <GoogleLogin
             clientId={clientId}
             scope={'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/youtube.upload'}
-            buttonText="Continue with google"
+            buttonText={'Continue with Google'}
             onSuccess={props.onSignInResponse}
             onFailure={props.onSignOutResponse}
             cookiePolicy={'single_host_origin'}

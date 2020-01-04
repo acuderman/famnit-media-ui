@@ -7,8 +7,12 @@ import {BASE_URL} from './config'
 import AdminPage from './pages/admin/admin-page'
 import UploadPage from './pages/admin/upload-page'
 import VideosPage from './pages/admin/videos'
+import CategoriesAddAdminPage from './pages/admin/categories-add'
+import CategoriesEditPage from './pages/admin/categories-edit'
 import EditVideoPage from './pages/admin/edit-video'
+import UserVideosPage from './pages/user/user-page-videos'
 import { getAccessToken, verifyAccessToken } from './helpers/authentication'
+import { BASE_URL } from "./config";
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
@@ -33,11 +37,11 @@ export default function App() {
   }
 
   const onSignInResponse = async (data) => {
-    console.log(data)
     const { tokenObj } = data
     const token = await getAccessToken(tokenObj.id_token, tokenObj.access_token)
     Cookie.set("token", token);
     setSignedIn(true);
+    window.location.href = `${BASE_URL}/videos`
   };
 
   const onSignOutResponse = async (data) => {
@@ -61,6 +65,8 @@ export default function App() {
         <Route path="/admin">
           <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
         </Route>
+        <Route path="/watch/:video_id"
+          render={(props)=> <UserVideosPage match={props.match} />} />
         <Route 
         exact path="/:category"
         render={(props)=> <CategoryPage match={props.match} />} />
@@ -77,6 +83,15 @@ export default function App() {
         </Route>
         <Route path="/upload">
           <UploadPage />
+        </Route>
+        <Route path="/categories/add">
+          <CategoriesAddAdminPage />
+        </Route>
+        <Route path="/categories/edit">
+          <CategoriesEditPage />
+        </Route>
+        <Route path="/categories/remove">
+          <VideosPage />
         </Route>
         <Route path="/videos">
           <VideosPage />
@@ -116,7 +131,7 @@ export default function App() {
 function Home() {
   return (<div>
     <h2>Home</h2>
-    <Link to='/admin'>Admin</Link>
+      <Link to='/admin'>Admin</Link>
     </div>);
 }
 
