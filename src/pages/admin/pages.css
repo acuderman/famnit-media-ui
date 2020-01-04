@@ -25,3 +25,9 @@ h1 {
     margin-top: 20px;
     margin-bottom: -10px;
 }
+
+.button-add-categories-center {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}

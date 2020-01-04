@@ -6,6 +6,9 @@ import * as axios from "axios";
 import { API_BASE_URI, BASE_URL } from "../../config";
 import { getToken } from "../../helpers/get-token";
 import CustomizedSnackbars from "../../components/snackbar/index";
+import { Button } from "@material-ui/core";
+import InputAdornment from '@material-ui/core/InputAdornment';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const CategoriesAddAdminPage = props => {
   const [submittedError, setSubmittedError] = React.useState(false);
@@ -28,7 +31,7 @@ const CategoriesAddAdminPage = props => {
     setSubmitInProgress(true);
     setSnackbarSuccessText("");
     const subCategories = subCategory.filter((elt) => elt.title.length !== 0)
-    if (category.length === 0 && subCategories.length !== 0) {
+    if (category.length === 0 || subCategories.length !== 0) {
       setSubmitInProgress(false);
       setSnackbarErrorText("All fields are required");
       setSubmittedError(true);
@@ -60,10 +63,27 @@ const CategoriesAddAdminPage = props => {
 
   const onSubCategoryChange = (value, i) => {
     const array = subCategory;
-    array[i] = value;
-    if (array.indexOf("") === -1) {
-      array.push("");
+    array[i] = {
+        ...subCategory[i],
+        title: value,
+    };
+    const blankLines = array.filter((elt)=> elt.title.length === 0)
+    if (blankLines.length === 0) {
+      array.push({
+          title: '',
+          description: '',
+      });
     }
+    setSubCategory(array);
+    setForceUpdate(forceUpdate + 1)
+  };
+
+  const onSubCategoryDescriptionChange = (value, i) => {
+    const array = subCategory;
+    array[i] = {
+        ...subCategory[i],
+        description: value,
+    };
     setSubCategory(array);
     setForceUpdate(forceUpdate + 1)
   };
@@ -72,6 +92,23 @@ const CategoriesAddAdminPage = props => {
     setSnackbarSuccessText("");
     setSnackbarErrorText("");
   };
+
+  const addAnotherCategory = (value, i) => {
+    const array = subCategory;
+      array.push({
+          title: '',
+          description: '',
+      });
+    setSubCategory(array);
+    setForceUpdate(forceUpdate + 1)
+  };
+
+  const deleteSubCategory = (i) => {
+    const array = subCategory;
+    array.splice(i,i)
+    setSubCategory(array);
+    setForceUpdate(forceUpdate + 1)
+  }
 
   return (
     <div className={"page"}>
@@ -91,8 +128,13 @@ const CategoriesAddAdminPage = props => {
         return [
           <TextField
             key={i}
-            error={submittedError && value.length === 0}
-            value={value}
+            InputProps={{
+                endAdornment: <InputAdornment position="end">
+                    {i !== 0  ? <DeleteIcon style={{ cursor: 'pointer'}} onClick={() => deleteSubCategory(i)}/> : <span />}
+                    </InputAdornment>,
+            }}
+            error={submittedError && value.title.length === 0}
+            value={value.title}
             id="description"
             onChange={e => onSubCategoryChange(e.target.value, i)}
             label="Sub Category"
@@ -103,8 +145,8 @@ const CategoriesAddAdminPage = props => {
             key={i}
             multiline
             rows={6}
-            error={submittedError && value.length === 0}
-            value={value}
+            error={submittedError && value.description.length === 0}
+            value={value.description}
             id="description"
             onChange={e => onSubCategoryDescriptionChange(e.target.value, i)}
             label="Sub Category"
@@ -115,7 +157,10 @@ const CategoriesAddAdminPage = props => {
       })}
 
       <div className="split-20px"> </div>
-      <SubmitButton inProgress={submitProgress} onClick={onSubmit} />
+      <div className='button-add-categories-center'>
+        <Button style={{ width: 500, backgroundColor: '#E8E8E8' }} onClick={addAnotherCategory}> Add another sub category </Button>
+      </div>
+        <SubmitButton inProgress={submitProgress} onClick={onSubmit} />
       <CustomizedSnackbars
         onCloseEvent={onSnackbarClose}
         open={snackbarSuccessText.length > 0}
