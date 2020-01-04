@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
 import CategoryPage from "./pages/category-page";
-import {BASE_URL} from './config'
 import AdminPage from './pages/admin/admin-page'
 import UploadPage from './pages/admin/upload-page'
 import VideosPage from './pages/admin/videos'

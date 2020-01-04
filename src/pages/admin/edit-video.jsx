@@ -118,7 +118,9 @@ const EditVideoPage = (props) => {
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
       </FormControl>
-      <SubmitButton inProgress={submitProgress} onClick={onSubmit} />
+      <div className="button-add-categories-center">
+        <SubmitButton inProgress={submitProgress} onClick={onSubmit} />
+      </div>
         <CustomizedSnackbars onCloseEvent={onSnackbarClose} open={snackbarSuccessText.length > 0} text={snackbarSuccessText} />
         <CustomizedSnackbars onCloseEvent={onSnackbarClose} open={snackbarErrorText.length > 0} error text={snackbarErrorText} />
     </div>

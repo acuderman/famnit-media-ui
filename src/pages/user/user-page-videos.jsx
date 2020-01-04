@@ -43,7 +43,7 @@ const UserVideosPage = props => {
       );
       setAccessToken(token);
     } catch(e) {
-        setAccessToken(undefined)
+      setAccessToken(undefined)
     }    
   }
 
@@ -76,6 +76,7 @@ const UserVideosPage = props => {
               },
               {headers: {Authorization: `Bearer ${access_token}`}},
           );
+          setComment('')
           setSuccessSnackbar('You successfully posted a comment')
       } catch(e) {
         setErrorSnackbar(e.message)
