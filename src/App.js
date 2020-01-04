@@ -1,15 +1,18 @@
-import React, { useEffect, useState, useParams } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import * as axios from "axios";
 import * as Cookie from "js-cookie";
 import ResponsiveDrawer from './components/side-menu'
-import AdminPage from './pages/admin-page'
-import {BASE_URL} from './config'
-import { useHistory } from "react-router-dom";
 import CategoryPage from "./pages/category-page";
+import {BASE_URL} from './config'
+import AdminPage from './pages/admin/admin-page'
+import UploadPage from './pages/admin/upload-page'
+import VideosPage from './pages/admin/videos'
+import EditVideoPage from './pages/admin/edit-video'
+import { getAccessToken, verifyAccessToken } from './helpers/authentication'
 
 export default function App() {
   const [signedIn, setSignedIn] = useState(false);
+  const [tokenChecked, setTokenChecked] = useState(false);
 
   useEffect(() => {
     checkAccessToken();
@@ -19,21 +22,22 @@ export default function App() {
     const accessToken = Cookie.get("token");
     if (accessToken !== undefined) {
       try {
-        await axios.get(
-          `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`
-        );
+        await verifyAccessToken(accessToken)
         setSignedIn(true);
       } catch (e) {
         Cookie.remove("token");
         setSignedIn(false);
       }
+      setTokenChecked(true)
     }
   }
 
   const onSignInResponse = async (data) => {
-    Cookie.set("token", data.tokenObj.access_token);
-    setSignedIn(true)
-    window.location="localhost:3000"
+    console.log(data)
+    const { tokenObj } = data
+    const token = await getAccessToken(tokenObj.id_token, tokenObj.access_token)
+    Cookie.set("token", token);
+    setSignedIn(true);
   };
 
   const onSignOutResponse = async (data) => {
@@ -54,10 +58,12 @@ export default function App() {
         <Route exact path="/">
           <Home />
         </Route>
-
-        <Route exact path="/admin">
+        <Route path="/admin">
           <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
         </Route>
+        <Route 
+        exact path="/:category"
+        render={(props)=> <Category match={props.match} />} />
 
         <Route 
         exact path="/:category">
@@ -66,7 +72,6 @@ export default function App() {
         <Route 
         exact path="/:category/:sub_category"
         render={(props)=> <SubCategory match={props.match} />} />
-      
       </Switch>
     );
   } else {
@@ -75,19 +80,31 @@ export default function App() {
         <Route path="/admin">
           <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
         </Route>
+        <Route path="/upload">
+          <UploadPage />
+        </Route>
+        <Route path="/videos">
+          <VideosPage />
+        </Route>
+        <Route path="/edit/:id"
+          render={(props)=> <EditVideoPage match={props.match} />} />
         <Route path="/">
           <Home />
         </Route>
       </Switch>
     );
   }
+  let render = <span />;
 
-  let render =
+  if(tokenChecked) {
+    render =
     <Router>
-        <ResponsiveDrawer >
+        <ResponsiveDrawer signedIn={signedIn}>
       {routes}
       </ResponsiveDrawer>
     </Router>
+  }
+
 
   /*if(document.location.href.endsWith('/admin')) {
     render = 

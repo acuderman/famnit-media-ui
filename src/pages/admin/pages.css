@@ -1,0 +1,18 @@
+h1 {
+    margin-bottom: 40px;
+}
+
+.page {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.video-wrapper {
+    display: flex;
+    flex-flow: row;
+}
+
+.video-delimeter {
+    width: 20px;
+}
