@@ -120,6 +120,7 @@ const UserVideosPage = props => {
       <h2>Comments</h2>
       {commentInput}
       {comments.map(comment => {
+        console.log(comment);
         const snippet = comment.snippet.topLevelComment.snippet;
         return (
           <div className="youtube-comment">

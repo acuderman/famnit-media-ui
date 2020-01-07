@@ -31,9 +31,9 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root2: {
-    display:'flex',
-    position:'absolute',
-    right:'15px',
+    display: "flex",
+    position: "absolute",
+    right: "15px"
   },
   root: {
     display: "flex"
@@ -57,10 +57,13 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth
   },
+  //flexGrow: 1,
+  //padding: theme.spacing(3),
+  //height: "90vh"
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    height: "90vh"
+    height:'90vh'
   },
   listRoot: {
     width: "100%",
@@ -177,10 +180,16 @@ function ResponsiveDrawer(props) {
 
           <div className={classes.root2}>
             <ButtonGroup
-              variant="text" color="white" aria-label="text primary button group"
+              variant="text"
+              color="white"
+              aria-label="text primary button group"
             >
-              <Button style={{color:'white',borderColor:'white'}}>SLO</Button>
-              <Button style={{color:'white',borderColor:'white'}}>ENG</Button>
+              <Button style={{ color: "white", borderColor: "white" }}>
+                SLO
+              </Button>
+              <Button style={{ color: "white", borderColor: "white" }}>
+                ENG
+              </Button>
             </ButtonGroup>
           </div>
         </Toolbar>
