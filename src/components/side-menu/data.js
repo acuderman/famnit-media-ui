@@ -21,3 +21,32 @@ export const categories = [
         children: [],
     }
 ]
+
+export const adminCategories = [
+    {
+        category: 'Upload video',
+        to: '/upload',
+        children: [],
+    },
+    {
+        category: 'Videos',
+        to: '/videos',
+        children: [],
+    },
+    {
+        category: 'Categories',
+        to: '/categories/add',
+        children: [
+            {
+                category: 'Add Category',
+                to: '/categories/add',
+                children: [],
+            },
+            {
+                category: 'Edit Category',
+                to: '/categories/edit',
+                children: [],
+            },
+        ],
+    }
+]
