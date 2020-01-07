@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import * as Cookie from "js-cookie";
-import ResponsiveDrawer from './components/side-menu'
+import ResponsiveDrawer from "./components/side-menu";
 import CategoryPage from "./pages/user/category-page";
-import SubCategoryPage from './pages/user/subcategory-page'
-import HomePage from './pages/home-page'
-import AdminPage from './pages/admin/admin-page'
-import UploadPage from './pages/admin/upload-page'
-import VideosPage from './pages/admin/videos'
-import CategoriesAddAdminPage from './pages/admin/categories-add'
-import CategoriesEditPage from './pages/admin/categories-edit'
-import EditVideoPage from './pages/admin/edit-video'
-import UserVideosPage from './pages/user/user-page-videos'
-import { getAccessToken, verifyAccessToken } from './helpers/authentication'
+import SubCategoryPage from "./pages/user/subcategory-page";
+import HomePage from "./pages/home-page";
+import AdminPage from "./pages/admin/admin-page";
+import UploadPage from "./pages/admin/upload-page";
+import VideosPage from "./pages/admin/videos";
+import DeleteCategoryPage from "./pages/admin/delete-category";
+import CategoriesAddAdminPage from "./pages/admin/add-category";
+import CategoriesEditAdminPage from "./pages/admin/edit-category";
+import EditVideoPage from "./pages/admin/edit-video";
+import UserVideosPage from "./pages/user/user-page-videos";
+import { getAccessToken, verifyAccessToken } from "./helpers/authentication";
 import { BASE_URL } from "./config";
 
 export default function App() {
@@ -27,25 +28,22 @@ export default function App() {
     const accessToken = Cookie.get("token");
     if (accessToken !== undefined) {
       try {
-        await verifyAccessToken(accessToken)
+        await verifyAccessToken(accessToken);
         setSignedIn(true);
       } catch (e) {
         Cookie.remove("token");
         setSignedIn(false);
       }
     }
-    setTokenChecked(true)
+    setTokenChecked(true);
   }
 
-  const onSignInResponse = async (data) => {
-    const { tokenObj } = data
-    const token = await getAccessToken(tokenObj.id_token, tokenObj.access_token)
-    Cookie.set("token", token);
+  const onSignInResponse = async data => {
     setSignedIn(true);
-    window.location.href = `${BASE_URL}/videos`
+    window.location.href = `${BASE_URL}/videos`;
   };
 
-  const onSignOutResponse = async (data) => {
+  const onSignOutResponse = async data => {
     Cookie.remove("token");
     setSignedIn(false);
   };
@@ -54,33 +52,41 @@ export default function App() {
   if (!signedIn) {
     routes = (
       <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
         <Route exact path="/">
           <Home />
         </Route>
         <Route path="/admin">
-          <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
+          <AdminPage
+            signedIn={signedIn}
+            onSignOutResponse={onSignOutResponse}
+            onSignInResponse={onSignInResponse}
+          />
         </Route>
-        <Route path="/watch/:video_id"
-          render={(props)=> <UserVideosPage match={props.match} />} />
-        <Route 
-        exact path="/:category"
-        render={(props)=> <CategoryPage match={props.match} />} />
-        <Route 
-        exact path="/:category/:sub_category"
-        render={(props)=> <SubCategoryPage match={props.match} />} />
+        <Route
+          path="/:category/:sub_category/:video_id"
+          render={props => <UserVideosPage match={props.match} />}
+        />
+        <Route
+          exact
+          path="/:category"
+          render={props => <CategoryPage match={props.match} />}
+        />
+        <Route
+          exact
+          path="/:category/:sub_category"
+          render={props => <SubCategoryPage match={props.match} />}
+        />
       </Switch>
     );
   } else {
     routes = (
       <Switch>
         <Route path="/admin">
-          <AdminPage signedIn={signedIn} onSignOutResponse={onSignOutResponse} onSignInResponse={onSignInResponse}  />
+          <AdminPage
+            signedIn={signedIn}
+            onSignOutResponse={onSignOutResponse}
+            onSignInResponse={onSignInResponse}
+          />
         </Route>
         <Route path="/upload">
           <UploadPage />
@@ -89,16 +95,39 @@ export default function App() {
           <CategoriesAddAdminPage />
         </Route>
         <Route path="/categories/edit">
-          <CategoriesEditPage />
+          <CategoriesEditAdminPage />
         </Route>
-        <Route path="/categories/remove">
-          <VideosPage />
+        <Route path="/categories/delete">
+          <DeleteCategoryPage />
         </Route>
         <Route path="/videos">
           <VideosPage />
         </Route>
-        <Route path="/edit/:id"
-          render={(props)=> <EditVideoPage match={props.match} />} />
+        <Route
+          path="/edit/:id"
+          render={props => <EditVideoPage match={props.match} />}
+        />
+                <Route path="/admin">
+          <AdminPage
+            signedIn={signedIn}
+            onSignOutResponse={onSignOutResponse}
+            onSignInResponse={onSignInResponse}
+          />
+        </Route>
+        <Route
+          path="/:category/:sub_category/:video_id"
+          render={props => <UserVideosPage match={props.match} />}
+        />
+        <Route
+          exact
+          path="/:category"
+          render={props => <CategoryPage match={props.match} />}
+        />
+        <Route
+          exact
+          path="/:category/:sub_category"
+          render={props => <SubCategoryPage match={props.match} />}
+        />
         <Route path="/">
           <Home />
         </Route>
@@ -107,15 +136,13 @@ export default function App() {
   }
   let render = <span />;
 
-  if(tokenChecked) {
-    render =
-    <Router>
-        <ResponsiveDrawer signedIn={signedIn}>
-      {routes}
-      </ResponsiveDrawer>
-    </Router>
+  if (tokenChecked) {
+    render = (
+      <Router>
+        <ResponsiveDrawer signedIn={signedIn}>{routes}</ResponsiveDrawer>
+      </Router>
+    );
   }
-
 
   /*if(document.location.href.endsWith('/admin')) {
     render = 
@@ -124,33 +151,37 @@ export default function App() {
     </Router>
   }*/
 
-  return (
-    render
-  );
+  return render;
 }
 
 function Home() {
-  return (<div>
-    <h2>Home</h2>
-      <Link to='/admin'>Admin</Link>
-    </div>);
+  return (
+    <div>
+      <h2>Home</h2>
+      <Link to="/admin">Admin</Link>
+    </div>
+  );
 }
 
 function About() {
   return <h2>About</h2>;
 }
 
-const SubCategory = (props) => {
- const { sub_category, category } = props.match.params
+const SubCategory = props => {
+  const { sub_category, category } = props.match.params;
 
-return <h2>Category:{category}, Sub category: {sub_category}</h2>;
-}
+  return (
+    <h2>
+      Category:{category}, Sub category: {sub_category}
+    </h2>
+  );
+};
 
-const Category = (props) => {
-  const { category } = props.match.params
- 
- return <h2>Category:{category}</h2>;
- }
+const Category = props => {
+  const { category } = props.match.params;
+
+  return <h2>Category:{category}</h2>;
+};
 
 function Admin() {
   return <h2>Admin</h2>;

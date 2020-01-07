@@ -1,3 +1,4 @@
+
 export const categories = [
     {
         category: 'Photoshop',
@@ -45,6 +46,11 @@ export const adminCategories = [
             {
                 category: 'Edit Category',
                 to: '/categories/edit',
+                children: [],
+            },
+            {
+                category: 'Delete Category',
+                to: '/categories/delete',
                 children: [],
             },
         ],

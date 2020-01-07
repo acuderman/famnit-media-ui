@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Wallpaper from '../images/wallpaper.png'
+import Wallpaper from '../images/background.svg'
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
@@ -20,8 +20,7 @@ const useStyles = makeStyles(theme => ({
   img: {
     margin: "auto",
     display: "block",
-    maxWidth: "100%",
-    maxHeight: "10%"
+    width: "100%",
   },
   title: {
     fontSize: 24,
@@ -36,19 +35,14 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     textDecoration: "none",
     color: "black"
-  },
-  paperContainer: {
-      width:'100%',
-    backgroundImage: Wallpaper
-}
+  }
 }));
 
 export default function ComplexGrid() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-        <img className={classes.img} src={Wallpaper} alt='img'></img>
+    <div className={"home"}>
       </div>
   );
 }

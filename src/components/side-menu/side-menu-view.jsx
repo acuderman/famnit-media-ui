@@ -25,15 +25,19 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import { categories, adminCategories } from "./data";
 import { withRouter } from "react-router";
+import * as axios from "axios";
+
+
 import "./fonts.css";
+import { API_BASE_URI } from "../../config";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root2: {
-    display:'flex',
-    position:'absolute',
-    right:'15px',
+    display: "flex",
+    position: "absolute",
+    right: "15px"
   },
   root: {
     display: "flex"
@@ -57,6 +61,9 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth
   },
+  //flexGrow: 1,
+  //padding: theme.spacing(3),
+  //height: "90vh"
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -79,6 +86,9 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [nestedOpen, setNestedOpen] = React.useState([]);
   const [force, setForce] = React.useState(0);
+  const [categories, setCategories] = React.useState([]);
+
+  const [renderData, setRenderData] = React.useState([]) 
 
   const handleClick = (position, url) => {
     nestedOpen[position] =
@@ -96,8 +106,59 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  React.useEffect(() => {
+    getCategories();
+  }, []);
+
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URI}/categories`);
+
+      setCategories(response.data);
+      formatCategories(response.data)
+    } catch (e) {
+      // error
+    }
+  };
+
+  const formatCategories = async (data) => {
+    const mainCategories = data.filter(
+      elt => elt.parent_category_id === null
+    );
+    const formattedMainCategories = [];
+    await Promise.all(
+      mainCategories.map(async elt => {
+        const category = {
+          category: elt.name,
+          to: `/${elt.slug}`
+        };
+        category.children = await formatChildren(elt.id, elt.slug);
+        formattedMainCategories.push(category)
+      })
+    );
+      setRenderData(formattedMainCategories)
+    
+  };
+
+  const formatChildren = async (categoryId, baseSlug) => {
+    const children = [];
+    const response = await axios.get(`${API_BASE_URI}/categories/${categoryId}/subcategories`)
+    const data = response.data;
+    data.forEach((sub) => {
+      const category = {
+        category: sub.name,
+        to: `/${baseSlug}/${sub.slug}`,
+        children: [],
+      }
+      children.push(category)
+    })
+
+
+    return children
+  };
+
   const generateMenuItems = children => {
-    const selectedCategories = props.signedIn ? adminCategories : categories;
+    const selectedCategories = props.signedIn ? adminCategories : renderData;
     const menuItems = [];
     const loopElements = children === undefined ? selectedCategories : children;
     loopElements.forEach((category, i) => {
@@ -149,6 +210,14 @@ function ResponsiveDrawer(props) {
       >
         {generateMenuItems()}
       </List>
+      { props.signedIn && <Divider />}
+      <List
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        className={classes.listRoot}
+      >
+        {props.signedIn && generateMenuItems(renderData)}
+      </List>
     </div>
   );
 
@@ -177,10 +246,16 @@ function ResponsiveDrawer(props) {
 
           <div className={classes.root2}>
             <ButtonGroup
-              variant="text" color="white" aria-label="text primary button group"
+              variant="text"
+              color="white"
+              aria-label="text primary button group"
             >
-              <Button style={{color:'white',borderColor:'white'}}>SLO</Button>
-              <Button style={{color:'white',borderColor:'white'}}>ENG</Button>
+              <Button style={{ color: "white", borderColor: "white" }}>
+                SLO
+              </Button>
+              <Button style={{ color: "white", borderColor: "white" }}>
+                ENG
+              </Button>
             </ButtonGroup>
           </div>
         </Toolbar>

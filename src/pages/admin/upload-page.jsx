@@ -13,29 +13,34 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-
 const UploadPage = (props) => {
-    const [files, setFiles] = React.useState([]);
     const [inProgress, setInProgress] = React.useState(false);
     const [title, setTitle] = React.useState('')
     const [description, setDescription] = React.useState('')
+    const [youtube_video_id, setYoutubeVideoID] = React.useState('')
+    const [category, setCategory] = React.useState('')
+
+
     const [submittedError, setSubmittedError] = React.useState(false);
     const [submitProgress, setSubmitInProgress] = React.useState(false);
     const [snackbarSuccessText, setSnackbarSuccessText] = React.useState('')
     const [snackbarErrorText, setSnackbarErrorText] = React.useState('')
 
-    const [category, setCategory] = React.useState('')
-    const [subCategory, setSubCategory] = React.useState('')
+    const [categoriesOptions, setCategoriesOptions] = React.useState([]);
 
-    const onChange = (data) => {
-        setFiles(data)
-        setInProgress(false)
-    }
-    const onDrop = () => {
-        setInProgress(true)
-    }
-    const onFileChange = () => {
-        setInProgress(false)
+  
+    React.useEffect(() => {
+      getCategories()
+    }, [])
+  
+    const getCategories = async () => {
+      try {
+          const response = await axios.get(`${API_BASE_URI}/categories`)
+          const subcategories = response.data.filter((elt) => elt.parent_category_id !== null)
+          setCategoriesOptions(subcategories)      
+        } catch(e) {
+            // error
+        }
     }
 
     const onTitleChange = (e) => {
@@ -52,7 +57,7 @@ const UploadPage = (props) => {
         }
         setSubmitInProgress(true);
         setSnackbarSuccessText('');
-        if(files.length === 0 || title.length === 0 || description.length === 0 || category.length === 0 || subCategory.length === 0) {
+        if(title.length === 0 || description.length === 0 || category.length === 0 || youtube_video_id.length === 0) {
             setSubmitInProgress(false)
             setSnackbarErrorText('All fields are required');
             setSubmittedError(true)
@@ -64,16 +69,17 @@ const UploadPage = (props) => {
             return
         }
         setSnackbarErrorText('');
-        const formData = new FormData();
-        formData.append('file', files[0]);
-        formData.append('title', title);
-        formData.append('description', description);
-        formData.append('category', category);
-        formData.append('subCategory', subCategory);
+
+        const body = {
+          youtube_video_id,
+          title,
+          description,
+          category,
+        }
 
         try {
-            await axios.post(`${API_BASE_URI}/upload`, formData, { headers: { authorization: `Bearer ${getToken()}` }})
-            setSnackbarSuccessText('You Successfully uploaded a video!')
+            await axios.post(`${API_BASE_URI}/videos`, body, { headers: { authorization: `Bearer ${getToken()}` }})
+            setSnackbarSuccessText('You Successfully uploaded the video!')
             window.location.href = `${BASE_URL}/videos`
 
         } catch (e) {
@@ -92,22 +98,11 @@ const UploadPage = (props) => {
   return (
     <div className={'page'}>
       <h1>Upload video</h1>
-      <ErrorBox style={{
-          //display: submittedError ? 'flex' : 'none',
-          display: submittedError ? 'none' : 'none'
-      }}/>
-      <DropzoneArea
-        filesLimit={1}
-        onChange={onChange}
-        acceptedFiles={['video/*']}
-        dropzoneText={ !inProgress || files.length === 1 ? 'Drag and drop video here': 'Please wait upload is in progress'}
-        maxFileSize={5000000000}
-        onDrop={onDrop}
-        onFileChange={onFileChange}
-        />
         <TextField error={submittedError && title.length === 0 } value={title} className='title' onChange={onTitleChange} id="outlined-basic" label="Title" fullWidth variant="outlined" />
         <TextField error={submittedError && description.length === 0 } value={description} id="description" onChange={onDescriptionChange} multiline rows={6} label="Description" fullWidth variant="outlined" />
         <div className='split-20px'> </div>
+        <TextField error={submittedError && youtube_video_id.length === 0 } value={youtube_video_id} id="description" onChange={(e) => setYoutubeVideoID(e.target.value) } label="youtube video id" fullWidth variant="outlined" />
+
 
         <FormControl variant="outlined" >
         <InputLabel id="dropdown">
@@ -121,29 +116,12 @@ const UploadPage = (props) => {
           error={submittedError && category.length === 0 }
           onChange={(e) => setCategory(e.target.value)}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+         {categoriesOptions.map((elt) => {
+                return <MenuItem value={elt.id}>{elt.name}</MenuItem>
+            })}
         </Select>
       </FormControl>
       <div className='split-20px'> </div>
-      <FormControl variant="outlined" >
-        <InputLabel id="dropdown">
-          Sub Category
-        </InputLabel>
-        <Select
-           error={submittedError && subCategory.length === 0 }
-          labelId="dropdown"
-          id="dropdown"
-          value={subCategory}
-          labelWidth={90}
-          onChange={(e) => setSubCategory(e.target.value)}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
       <div className="button-add-categories-center">
         <SubmitButton inProgress={submitProgress} onClick={onSubmit} />
       </div>

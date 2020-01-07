@@ -31,3 +31,8 @@ h1 {
     flex-flow: row;
     justify-content: center;
 }
+.home{
+    width: 100%;
+    height: 100%;
+    background-image:url("http://www.downloadclipart.net/svg/37301-simple-blue-background-vector.svg");
+}

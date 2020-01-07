@@ -2,7 +2,7 @@
 import React from "react";
 import GoogleAuth from "../../components/admin";
 import Snackbar from "../../components/snackbar";
-import { GOOGLE_API_BASE_URL, GOOGLE_AUTH_API_BASE_URL , YOUTUBE_API_KEY } from "../../config";
+import { GOOGLE_API_BASE_URL, GOOGLE_AUTH_API_BASE_URL , YOUTUBE_API_KEY, API_BASE_URI, BASE_URL } from "../../config";
 import * as axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import * as Cookies from 'js-cookie';
@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom';
 
 const UserVideosPage = props => {
-  const { video_id } = props.match.params;
+  const { category , video_id, sub_category } = props.match.params;
   const [comments, setComments] = React.useState([]);
   const [access_token, setAccessToken] = React.useState(undefined)
   const [comment, setComment] = React.useState('');
@@ -20,8 +20,13 @@ const UserVideosPage = props => {
   const [errorSnackbar, setErrorSnackbar] = React.useState('')
   
 
-  const [title, setTitle] = React.useState('title')
-  const [description, setDescription] = React.useState('description')
+  const [title, setTitle] = React.useState('')
+  const [description, setDescription] = React.useState('')
+
+
+  const [videos, setVideos] = React.useState([])
+  const [subCategoryId, setSubCategoryId] = React.useState('')
+  const [currentVideoIndex, setCurrentVideoIndex] = React.useState(0)
 
   const getComments = async () => {
     const comments = await axios.get(
@@ -33,7 +38,30 @@ const UserVideosPage = props => {
   React.useEffect(() => {
     getComments();
     verifyAccessToken()
+    getCategoryIdFromSlug()
   }, []);
+
+  const getCategoryIdFromSlug = async () => {
+    const response = await axios.get(`${API_BASE_URI}/categories/slug/${sub_category}`)
+
+    let id = undefined;
+    if(response.data.length !== 0) {
+      id = response.data[0].id;
+    }
+    setSubCategoryId(id)
+    getVideos(id)
+  }
+
+  const getVideos = async (id) => {
+    const response = await axios.get(`${API_BASE_URI}/categories/${id}/videos`)
+    const data = response.data;
+    setVideos(response.data)
+
+    const currentVideoInd = data.findIndex((elt) => { return elt.youtube_video_id === video_id})
+    setTitle(response.data[currentVideoInd].title)
+    setDescription(response.data[currentVideoInd].description)
+    setCurrentVideoIndex(currentVideoInd)
+  }
 
   const verifyAccessToken = async () => {
       const token = Cookies.get('youtube-token')
@@ -93,10 +121,22 @@ const UserVideosPage = props => {
     setSuccessSnackbar('')
     setErrorSnackbar('')
 }
+
+const changeUrl = (path) => {
+  window.location.href=`${BASE_URL}/${path}`
+}
   
   const commentInput = access_token !== undefined 
   ? <div className='post-comment'><TextField value={comment} style={{ width: '90%' }} onChange={onCommentChange} id="standard-basic" label="Add a comment" /> <span className='send-icon'><SendIcon onClick={onSubmit}/></span> </div>
   : <div className='comment'> <h4> if you want to comment, you need to log in </h4> <GoogleAuth onSignInResponse={onAuthResponse} /> </div>
+
+  const previousButton = currentVideoIndex !== 0 
+    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex - 1].youtube_video_id}`)} >Previous video</div>
+    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}>Go back to categories</div>
+
+    const nextButton = currentVideoIndex < videos.length -1
+    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex + 1].youtube_video_id}`)} >Next video</div>
+    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}>Go back to categories</div>
 
   return (
     <div className="watch-videos">
@@ -110,8 +150,8 @@ const UserVideosPage = props => {
         ></iframe>
       </div>
       <div className='nav-buttons'>
-      <Link className='video-navigation-buttons' to={''}>Previous video</Link>
-      <Link className='video-navigation-buttons' to={''}>Next video</Link>
+      {previousButton}
+      {nextButton}
         </div>
         <div className={'split-40px'}> </div>
       <h2>{title}</h2>
