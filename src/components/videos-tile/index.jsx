@@ -8,6 +8,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import * as axios from 'axios';
+import { API_BASE_URI } from "../../config";
+import { getToken } from "../../helpers/get-token";
 
 const useStyles = makeStyles({
   card: {
@@ -23,6 +26,11 @@ const useStyles = makeStyles({
 export default function VideoTile(props) {
   const classes = useStyles();
   const { description, title, id } = props;
+
+  const onDelete = async () => {
+    await axios.delete(`${API_BASE_URI}/video/${id}`, { headers: { authorization: `Bearer ${getToken()}` }})
+    props.refreshVideos()
+  }
 
   return (
     <Card className={classes.card}>
@@ -42,7 +50,7 @@ export default function VideoTile(props) {
             EDIT
           </Button>
         </Link>
-        <Button size="small" style={{ color: "#f44336" }}>
+        <Button onClick={onDelete} size="small" style={{ color: "#f44336" }}>
           DELETE
         </Button>
       </CardActions>

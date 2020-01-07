@@ -1,5 +1,5 @@
 import React from "react";
-import GoogleAuth from "../../components/admin/index";
+import * as axios from 'axios';
 
 import "../fonts.css";
 import {
@@ -14,6 +14,10 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { fontFamily, maxHeight } from "@material-ui/system";
+import { API_BASE_URI, BASE_URL } from "../../config";
+import * as Cookies from 'js-cookie'
+import SubmitButton from "../../components/submit-button";
+import CustomizedSnackbars from "../../components/snackbar";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,6 +48,42 @@ const useStyles = makeStyles(theme => ({
 
 const AdminPage = props => {
   const classes = useStyles();
+  const [username, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  const [submitProgress, setSubmitInProgress] = React.useState(false);
+  const [snackbarSuccessText, setSnackbarSuccessText] = React.useState("");
+  const [snackbarErrorText, setSnackbarErrorText] = React.useState("");
+
+  React.useEffect(() => {
+    if (props.singnedIn) {
+      window.location.href = `${BASE_URL}/videos`
+    }
+  }, [])
+
+
+  const onSubmit = async () => {
+    setSubmitInProgress(true)
+    try {
+      const response = await axios.post(`${API_BASE_URI}/login`, {
+        username,
+        password,
+      })
+
+      Cookies.set('token', response.data.access_token)
+      console.log(response)
+      props.onSignInResponse()
+    }catch(e) {
+      setSubmitInProgress(false)
+      setSnackbarErrorText('Wrong username or password')
+    }
+  }
+
+  const onSnackbarClose = () => {
+    setSnackbarSuccessText('');
+    setSnackbarErrorText('');
+}
+
 
   return (
     <Paper className={classes.paper} variant="outlined">
@@ -77,13 +117,15 @@ const AdminPage = props => {
             alignItems: "center"
           }}
         >
-          <form className={classes.root} noValidate autoComplete="off">
+          <form className={classes.root} autoComplete="off">
             <TextField
               className={classes.root}
               id="outlined-basic"
               label="Username"
               variant="outlined"
               size="small"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               className={classes.root}
@@ -92,13 +134,17 @@ const AdminPage = props => {
               type="password"
               variant="outlined"
               size="small"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </form>
           
           <div>
-            <Button variant="contained" color="primary" style={{marginBottom:'15px'}}>
-              Login
-            </Button>
+          <div className="button-add-categories-center">
+        <SubmitButton inProgress={submitProgress} onClick={onSubmit} />
+        <CustomizedSnackbars onCloseEvent={onSnackbarClose} open={snackbarSuccessText.length > 0} text={snackbarSuccessText} />
+        <CustomizedSnackbars onCloseEvent={onSnackbarClose} open={snackbarErrorText.length > 0} error text={snackbarErrorText} />
+      </div>
           </div>
           <br/>
           <br/>

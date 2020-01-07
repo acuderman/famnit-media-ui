@@ -8,8 +8,9 @@ import HomePage from "./pages/home-page";
 import AdminPage from "./pages/admin/admin-page";
 import UploadPage from "./pages/admin/upload-page";
 import VideosPage from "./pages/admin/videos";
-import CategoriesAddAdminPage from "./pages/admin/categories-add";
-import CategoriesEditPage from "./pages/admin/categories-edit";
+import DeleteCategoryPage from "./pages/admin/delete-category";
+import CategoriesAddAdminPage from "./pages/admin/add-category";
+import CategoriesEditAdminPage from "./pages/admin/edit-category";
 import EditVideoPage from "./pages/admin/edit-video";
 import UserVideosPage from "./pages/user/user-page-videos";
 import { getAccessToken, verifyAccessToken } from "./helpers/authentication";
@@ -25,6 +26,7 @@ export default function App() {
 
   async function checkAccessToken() {
     const accessToken = Cookie.get("token");
+    console.log(accessToken)
     if (accessToken !== undefined) {
       try {
         await verifyAccessToken(accessToken);
@@ -38,12 +40,6 @@ export default function App() {
   }
 
   const onSignInResponse = async data => {
-    const { tokenObj } = data;
-    const token = await getAccessToken(
-      tokenObj.id_token,
-      tokenObj.access_token
-    );
-    Cookie.set("token", token);
     setSignedIn(true);
     window.location.href = `${BASE_URL}/videos`;
   };
@@ -57,12 +53,6 @@ export default function App() {
   if (!signedIn) {
     routes = (
       <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
         <Route exact path="/">
           <Home />
         </Route>
@@ -74,7 +64,7 @@ export default function App() {
           />
         </Route>
         <Route
-          path="/watch/:video_id"
+          path="/:category/:sub_category/:video_id"
           render={props => <UserVideosPage match={props.match} />}
         />
         <Route
@@ -106,10 +96,10 @@ export default function App() {
           <CategoriesAddAdminPage />
         </Route>
         <Route path="/categories/edit">
-          <CategoriesEditPage />
+          <CategoriesEditAdminPage />
         </Route>
-        <Route path="/categories/remove">
-          <VideosPage />
+        <Route path="/categories/delete">
+          <DeleteCategoryPage />
         </Route>
         <Route path="/videos">
           <VideosPage />
@@ -117,6 +107,27 @@ export default function App() {
         <Route
           path="/edit/:id"
           render={props => <EditVideoPage match={props.match} />}
+        />
+                <Route path="/admin">
+          <AdminPage
+            signedIn={signedIn}
+            onSignOutResponse={onSignOutResponse}
+            onSignInResponse={onSignInResponse}
+          />
+        </Route>
+        <Route
+          path="/:category/:sub_category/:video_id"
+          render={props => <UserVideosPage match={props.match} />}
+        />
+        <Route
+          exact
+          path="/:category"
+          render={props => <CategoryPage match={props.match} />}
+        />
+        <Route
+          exact
+          path="/:category/:sub_category"
+          render={props => <SubCategoryPage match={props.match} />}
         />
         <Route path="/">
           <Home />
