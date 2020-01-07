@@ -79,8 +79,9 @@ export default function ComplexGrid(props) {
 
   return (
     <div className={classes.root}>
-      {subCategories.map((sub) => {
-      return <Paper className={classes.paper}>
+      {subCategories.map((sub, i) => {
+        console.log(sub)
+      return <Paper key={i} className={classes.paper}>
       <Link to={`/${category}/${sub.slug}`} className={classes.button}>
         <Grid container spacing={2}>
           <Grid item className={classes.image}>
@@ -95,7 +96,7 @@ export default function ComplexGrid(props) {
                   variant="subtitle1"
                   className={classes.title}
                 >
-                  {sub.title}
+                  {sub.name}
                 </Typography>
                 <Typography
                   variant="body2"
