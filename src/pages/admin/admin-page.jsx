@@ -71,7 +71,6 @@ const AdminPage = props => {
       })
 
       Cookies.set('token', response.data.access_token)
-      console.log(response)
       props.onSignInResponse()
     }catch(e) {
       setSubmitInProgress(false)

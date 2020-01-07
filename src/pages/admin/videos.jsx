@@ -16,7 +16,7 @@ const VideosPage = props => {
       const response = await axios.get(`${API_BASE_URI}/videos`)
       setVideos(response.data)  
     } catch(e) {
-      console.log(e)
+      // err
     }
   }
 

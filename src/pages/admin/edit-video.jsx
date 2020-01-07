@@ -45,7 +45,6 @@ const EditVideoPage = (props) => {
         setCategory(data.category)      
         setYoutubeVideoID(data.youtube_video_id)    
       } catch(e) {
-          console.log(e)
           // error
       }
     }
@@ -56,7 +55,6 @@ const EditVideoPage = (props) => {
           const subcategories = response.data.filter((elt) => elt.parent_category_id !== null)
           setCategoriesOptions(subcategories)      
         } catch(e) {
-            console.log(e)
             // error
         }
     }

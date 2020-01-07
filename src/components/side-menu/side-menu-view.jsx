@@ -117,7 +117,6 @@ function ResponsiveDrawer(props) {
       setCategories(response.data);
       formatCategories(response.data)
     } catch (e) {
-      console.log(e);
       // error
     }
   };

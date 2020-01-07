@@ -40,7 +40,6 @@ const CategoriesDeletePage = props => {
         
         setCategoriesOptions(response.data)      
       } catch(e) {
-          console.log(e)
           // error
       }
   }

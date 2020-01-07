@@ -26,7 +26,6 @@ export default function App() {
 
   async function checkAccessToken() {
     const accessToken = Cookie.get("token");
-    console.log(accessToken)
     if (accessToken !== undefined) {
       try {
         await verifyAccessToken(accessToken);

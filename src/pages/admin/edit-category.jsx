@@ -46,7 +46,6 @@ const CategoriesEditAdminPage = props => {
       const parentCat = response.data.filter((elt) => elt.parent_category_id === null)
       setParentCategories(parentCat)
     } catch (e) {
-      console.log(e);
       // error
     }
   };
@@ -110,7 +109,7 @@ const CategoriesEditAdminPage = props => {
       );
       setSlug(data.slug !== null ? data.slug : "");
     } catch (e) {
-      console.log(e);
+      //err
     }
   };
 

@@ -39,7 +39,6 @@ const UploadPage = (props) => {
           const subcategories = response.data.filter((elt) => elt.parent_category_id !== null)
           setCategoriesOptions(subcategories)      
         } catch(e) {
-            console.log(e)
             // error
         }
     }

@@ -37,13 +37,11 @@ const CategoriesAddAdminPage = props => {
   const getCategories = async () => {
     try {
       const response = await axios.get(`${API_BASE_URI}/categories`);
-      console.log(response);
       const categoriesWithoutParent = response.data.filter(
         elt => elt.parent_category_id == null
       );
       setCategoriesOptions(categoriesWithoutParent);
     } catch (e) {
-      console.log(e);
       // error
     }
   };
