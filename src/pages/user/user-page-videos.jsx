@@ -11,6 +11,7 @@ import {
     Link
 } from 'react-router-dom';
 import { Button, Paper } from "@material-ui/core";
+import { dark } from "@material-ui/core/styles/createPalette";
 
 
 const UserVideosPage = props => {
@@ -151,9 +152,13 @@ const changeUrl = (path) => {
           allowfullscreen='allowfullscreen'
         ></iframe>
       </div>
-      <h2 style={{marginLeft:"8.5%"}}>{title}</h2>
-      <h3 style={{marginLeft:"8.5%"}}>{description}</h3>
-
+      <div style={{textAlign:"center"}}>
+      <h2 style={{
+    marginTop:0}}>{title}</h2>
+      <h3 style={{}}>{description}</h3>
+      </div>
+      <br/>
+      <br/>
       <div className='nav-buttons'>
       {previousButton}
       {nextButton}

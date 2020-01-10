@@ -156,7 +156,8 @@ const CategoriesAddAdminPage = props => {
         variant="outlined"
       />
       <br/>
-      <span style={{marginLeft:"5px"}}>OPTIONAL*</span>
+      <span style={{marginLeft:"5px",marginBottom:"10px"}}>OPTIONAL*</span>
+
       
       <FormControl variant="outlined">
         <InputLabel id="dropdown">Parent Category</InputLabel>
