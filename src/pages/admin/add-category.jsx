@@ -6,7 +6,7 @@ import * as axios from "axios";
 import { API_BASE_URI, BASE_URL } from "../../config";
 import { getToken } from "../../helpers/get-token";
 import CustomizedSnackbars from "../../components/snackbar/index";
-import { Button } from "@material-ui/core";
+import { Button, Paper } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -101,7 +101,20 @@ const CategoriesAddAdminPage = props => {
 
   return (
     <div className={"page"}>
-      <h1 style={{ marginBottom: 0 }}>Add Category</h1>
+      <Paper>
+      <h1
+        style={{
+          marginBottom: "15px",
+          textAlign: "center",
+          fontFamily: "Rubik",
+          color: "#3f515",
+          fontSize: 22,
+          fontWeight: "bold"
+        }}
+      >
+        Add category
+      </h1>
+      </Paper>
       <TextField
         error={submittedError && name.length === 0}
         value={name}
@@ -142,7 +155,9 @@ const CategoriesAddAdminPage = props => {
         fullWidth
         variant="outlined"
       />
-      OPTIONAL
+      <br/>
+      <span style={{marginLeft:"5px"}}>OPTIONAL*</span>
+      
       <FormControl variant="outlined">
         <InputLabel id="dropdown">Parent Category</InputLabel>
         <Select

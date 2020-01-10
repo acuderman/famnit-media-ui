@@ -1,76 +1,89 @@
 .videoWrapper {
-    display: flex;
-    justify-content: center;
-    flex-flow: row;
-	position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-	padding-top: 25px;
-	height: 0;
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+  position: relative;
+
+  /* Needs fix aspect ration and is not scaleable*/
+
+  padding-bottom: 50.25%; /* 16:9 */
+  padding-top: 20px;
+  margin-left: 4%;
+  margin-right: 4%;
+  height: 0;
 }
 .videoWrapper iframe {
-	position: absolute;
-	top: 0;
-	width: 90%;
-	height: 90%;
+  position: absolute;
+  top: 0;
+  width: 90%;
+  height: 90%;
 }
 
-  .split-40px {
-      width: 100%;;
-      margin-top: 20px;
-      margin-bottom: 20px;
-  }
-
-  .split-80px {
-    width: 100%;;
-    margin-top: 40px;
-    margin-bottom: 40px;
+.split-40px {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-  .split-20px {
-    width: 100%;;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.split-80px {
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.split-20px {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.split-5px {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.split-oneway-20px {
+  width: 100%;
+  margin-top: 10px;
 }
 .split-10px {
-    width: 100%;;
-    margin-top: 5px;
-    margin-bottom: 5px;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .video-navigation-buttons {
-    text-decoration: none;
-    background-color: #E8E8E8;
-    padding: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
-    width: 200px;
-    text-align: center;
-    color: black;
-    font-size: 20px;
+  text-decoration: none;
+  background-color: #e8e8e8;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 150px;
+  height: 60px;
+  text-align: center;
+  color: black;
+  font-size: 20px;
 }
 
 .nav-buttons {
-    display: flex;
-    flex-flow: row;
-    justify-content: center;
-    margin-top: -30px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  margin-top: 0px;
 }
 
-  .post-comment {
-      width: 75%
-  }
+.post-comment {
+  width: 100%;
+}
 
-  .send-icon {
-    cursor: pointer;
-    position: relative;
-    top: 19px;
-    left: 10px;
-  }
+.send-icon {
+  cursor: pointer;
+  position: relative;
+  height: 56px;
+}
 
-  .home{
-    background-image:url('../../images/homeBackground-01.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: '100%';
-    height: '100%';
-  }
+.home {
+  background-image: url("../../images/homeBackground-01.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: "100%";
+  height: "100%";
+}

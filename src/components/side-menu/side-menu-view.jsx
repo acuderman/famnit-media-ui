@@ -245,18 +245,9 @@ function ResponsiveDrawer(props) {
           </Typography>
 
           <div className={classes.root2}>
-            <ButtonGroup
-              variant="text"
-              color="white"
-              aria-label="text primary button group"
-            >
               <Button style={{ color: "white", borderColor: "white" }}>
-                SLO
+                ABOUT
               </Button>
-              <Button style={{ color: "white", borderColor: "white" }}>
-                ENG
-              </Button>
-            </ButtonGroup>
           </div>
         </Toolbar>
       </AppBar>

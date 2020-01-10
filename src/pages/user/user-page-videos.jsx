@@ -10,6 +10,8 @@ import SendIcon from '@material-ui/icons/Send';
 import {
     Link
 } from 'react-router-dom';
+import { Button, Paper } from "@material-ui/core";
+
 
 const UserVideosPage = props => {
   const { category , video_id, sub_category } = props.match.params;
@@ -127,16 +129,16 @@ const changeUrl = (path) => {
 }
   
   const commentInput = access_token !== undefined 
-  ? <div className='post-comment'><TextField value={comment} style={{ width: '90%' }} onChange={onCommentChange} id="standard-basic" label="Add a comment" /> <span className='send-icon'><SendIcon onClick={onSubmit}/></span> </div>
+  ? <div className='post-comment'><TextField variant="outlined" value={comment} style={{ width: '90%' }} onChange={onCommentChange} id="standard-basic" label="Add a comment" /> <span  onClick={onSubmit} className='send-icon'><Button variant="contained" color="primary" style={{width:"9%",height:"55px",marginTop:"1px"}}>Send</Button></span> </div>
   : <div className='comment'> <h4> if you want to comment, you need to log in </h4> <GoogleAuth onSignInResponse={onAuthResponse} /> </div>
 
   const previousButton = currentVideoIndex !== 0 
-    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex - 1].youtube_video_id}`)} >Previous video</div>
-    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}>Go back to categories</div>
+    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex - 1].youtube_video_id}`)} ><Button style={{width:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Previous video</Button></div>
+    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}><Button style={{width:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Go back to categories</Button></div>
 
     const nextButton = currentVideoIndex < videos.length -1
-    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex + 1].youtube_video_id}`)} >Next video</div>
-    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}>Go back to categories</div>
+    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex + 1].youtube_video_id}`)} ><Button style={{width:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight > Next video</Button></div>
+    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}><Button style={{width:"150px",height:"60px"}} variant="contained" fullWidth fullHeight> Go back to categories</Button></div>
 
   return (
     <div className="watch-videos">
@@ -149,22 +151,42 @@ const changeUrl = (path) => {
           allowfullscreen='allowfullscreen'
         ></iframe>
       </div>
+      <h2 style={{marginLeft:"8.5%"}}>{title}</h2>
+      <h3 style={{marginLeft:"8.5%"}}>{description}</h3>
+
       <div className='nav-buttons'>
       {previousButton}
       {nextButton}
         </div>
         <div className={'split-40px'}> </div>
-      <h2>{title}</h2>
-      <h3>{description}</h3>
       <div className={'split-80px'}> </div>
-      <h2>Comments</h2>
+      <Paper>
+      <h1
+        style={{
+          height:"50px",
+          marginBottom: "15px",
+          textAlign: "center",
+          fontFamily: "Rubik",
+          marginTop:0,
+          paddingTop:"10px",
+          paddingBottom:"10px",
+          color: "#3f515",
+          fontSize: 22,
+          fontWeight: "bold"
+        }}
+      >
+        Comments
+      </h1>
+      </Paper>
       {commentInput}
       {comments.map(comment => {
         const snippet = comment.snippet.topLevelComment.snippet;
         return (
           <div className="youtube-comment">
-            <h4 className="person">{snippet.authorDisplayName}</h4>
-            <p>{snippet.textDisplay}</p>
+            <Paper>
+            <h4 style={{paddingTop:"10px",marginLeft:"10px",marginBottom:"0px"}} className="person">{snippet.authorDisplayName}</h4>
+            <p style={{paddingBottom:"10px",marginLeft:"10px"}}>{snippet.textDisplay}</p>
+            </Paper>
           </div>
         );
       })}

@@ -6,7 +6,7 @@ import * as axios from "axios";
 import { API_BASE_URI, BASE_URL } from "../../config";
 import { getToken } from "../../helpers/get-token";
 import CustomizedSnackbars from "../../components/snackbar/index";
-import { Button } from "@material-ui/core";
+import { Button,Paper } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MenuItem from '@material-ui/core/MenuItem';
@@ -88,9 +88,22 @@ const CategoriesDeletePage = props => {
 
   return (
     <div className={"page"}>
-      <h1 style={{ marginBottom: 0 }}>Delete Category</h1>
+      <Paper>
+      <h1
+        style={{
+          marginBottom: "15px",
+          textAlign: "center",
+          fontFamily: "Rubik",
+          color: "#3f515",
+          fontSize: 22,
+          fontWeight: "bold"
+        }}
+      >
+        Delete category
+      </h1>
+      </Paper>
 
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" style={{marginTop:"30px"}}>
         <InputLabel id="dropdown">Category</InputLabel>
         <Select
           labelId="dropdown"

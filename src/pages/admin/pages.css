@@ -6,6 +6,8 @@ h1 {
     display: flex;
     flex-flow: column;
     justify-content: center;
+    margin-left: 3%;
+    margin-right: 3%;
 }
 
 .video-wrapper {
