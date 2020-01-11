@@ -15,13 +15,14 @@ import {
   makeStyles,
   useTheme,
   createStyles,
-  Theme
+  Theme,
 } from "@material-ui/core/styles";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Box from "@material-ui/core/Box";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import { categories, adminCategories } from "./data";
 import { withRouter } from "react-router";
@@ -49,7 +50,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
+
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -223,8 +225,8 @@ function ResponsiveDrawer(props) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+     
+      <AppBar position="fixed" className={classes.appBar} style={{backgroundColor:"#003366"}}>
         <Toolbar>
           <IconButton
             color="inherit"
