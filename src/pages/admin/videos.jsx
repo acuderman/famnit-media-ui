@@ -25,17 +25,16 @@ const VideosPage = props => {
   return (
     <div className={"page"}>
     <div>
-      <Paper>
+      <Paper style={{backgroundColor:"#003366"}}>
       <h1
         style={{
-          height:"61px",
+          height:"41px",
           marginBottom: "15px",
           textAlign: "center",
           fontFamily: "Rubik",
           marginTop:0,
-          paddingTop:"15px",
-          paddingBottom:"15px",
-          color: "#3f515",
+          paddingTop:"14px",
+          color: "white",
           fontSize: 22,
           fontWeight: "bold"
         }}

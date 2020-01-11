@@ -120,13 +120,13 @@ const CategoriesEditAdminPage = props => {
 
   return (
     <div className={"page"}>
-      <Paper>
+      <Paper style={{background: "#003366"}}>
       <h1
         style={{
           marginBottom: "15px",
           textAlign: "center",
           fontFamily: "Rubik",
-          color: "#3f515",
+          color: "white",
           fontSize: 22,
           fontWeight: "bold"
         }}

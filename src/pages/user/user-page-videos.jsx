@@ -165,17 +165,16 @@ const changeUrl = (path) => {
         </div>
         <div className={'split-40px'}> </div>
       <div className={'split-80px'}> </div>
-      <Paper>
+      <Paper style={{background: "#003366"}}>
       <h1
         style={{
-          height:"50px",
+          height:"40px",
           marginBottom: "15px",
           textAlign: "center",
           fontFamily: "Rubik",
           marginTop:0,
-          paddingTop:"10px",
-          paddingBottom:"10px",
-          color: "#3f515",
+          paddingTop:"13px",
+          color: "white",
           fontSize: 22,
           fontWeight: "bold"
         }}
