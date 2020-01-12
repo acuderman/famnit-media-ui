@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import {Paper} from "@material-ui/core";
 
 const EditVideoPage = (props) => {
   const { id } = props.match.params;
@@ -113,7 +114,16 @@ const EditVideoPage = (props) => {
 
   return (
     <div className={'page'}>
-      <h1>Edit video</h1>
+      <Paper elevation="0" style={{backgroundColor:"#003366"}}>
+      <h1 style={{
+          marginBottom: "15px",
+          textAlign: "center",
+          fontFamily: "Rubik",
+          color: "white",
+          fontSize: 22,
+          fontWeight: "bold"
+        }}>Edit video</h1>
+      </Paper>
         <TextField error={submittedError && title.length === 0 } value={title} className='title' onChange={onTitleChange} id="outlined-basic" label="Title" fullWidth variant="outlined" />
         <TextField error={submittedError && description.length === 0 } value={description} id="description" onChange={onDescriptionChange} multiline rows={6} label="Description" fullWidth variant="outlined" />
         <div className='split-20px'> </div>

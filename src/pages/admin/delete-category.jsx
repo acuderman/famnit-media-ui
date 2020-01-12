@@ -88,7 +88,7 @@ const CategoriesDeletePage = props => {
 
   return (
     <div className={"page"}>
-      <Paper style={{background: "#003366"}}>
+      <Paper  elevation="0" style={{background: "#003366"}}>
       <h1
         style={{
           marginBottom: "15px",

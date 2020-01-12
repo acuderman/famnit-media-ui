@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     margin: "auto",
-    width: "100%",
+    width: "98%",
     marginBottom: "25px"
   },
   image: {

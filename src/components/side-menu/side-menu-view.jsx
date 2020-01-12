@@ -240,7 +240,7 @@ function ResponsiveDrawer(props) {
           <Typography
             variant="h6"
             noWrap
-            style={{ fontFamily: "Russo One", fontSize: 25, cursor: "pointer" }}
+            style={{ fontFamily: "Russo One", fontSize: 25, cursor:"pointer"}}
             onClick={() => changeUrl("/")}
           >
             Famnit Tutorials
