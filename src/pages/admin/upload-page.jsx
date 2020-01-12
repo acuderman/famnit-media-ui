@@ -103,7 +103,7 @@ const UploadPage = props => {
 
   return (
     <div className={"page"}>
-      <Paper style={{backgroundColor:"#003366"}}>
+      <Paper elevation="0" style={{backgroundColor:"#003366"}}>
       <h1
         style={{
           marginBottom: "15px",

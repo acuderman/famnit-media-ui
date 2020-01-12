@@ -154,7 +154,7 @@ const changeUrl = (path) => {
       </div>
       <div style={{textAlign:"center"}}>
       <h2 style={{
-    marginTop:0}}>{title}</h2>
+    marginTop:"-30px"}}>{title}</h2>
       <h3 style={{}}>{description}</h3>
       </div>
       <br/>
@@ -165,7 +165,7 @@ const changeUrl = (path) => {
         </div>
         <div className={'split-40px'}> </div>
       <div className={'split-80px'}> </div>
-      <Paper style={{background: "#003366"}}>
+      <Paper elevation="0" style={{background: "#003366"}}>
       <h1
         style={{
           height:"40px",

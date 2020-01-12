@@ -25,7 +25,7 @@ const VideosPage = props => {
   return (
     <div className={"page"}>
     <div>
-      <Paper style={{backgroundColor:"#003366"}}>
+      <Paper  elevation="0" style={{backgroundColor:"#003366"}}>
       <h1
         style={{
           height:"41px",
