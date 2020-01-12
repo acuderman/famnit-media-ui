@@ -21,3 +21,4 @@ code {
 @import './components/submit-button/styles.css';
 @import './components/error-box/styles.css';
 @import './pages/user/user-pages.css';
+@import './App.css'

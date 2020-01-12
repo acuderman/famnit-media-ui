@@ -145,8 +145,6 @@ const changeUrl = (path) => {
     <div className="watch-videos">
       <div class="videoWrapper">
         <iframe
-          width="560"
-          height="349"
           src={`http://www.youtube.com/embed/${video_id}`}
           frameborder="0"
           allowfullscreen='allowfullscreen'
@@ -154,7 +152,7 @@ const changeUrl = (path) => {
       </div>
       <div style={{textAlign:"center"}}>
       <h2 style={{
-    marginTop:"-30px"}}>{title}</h2>
+    marginTop:"20px"}}>{title}</h2>
       <h3 style={{}}>{description}</h3>
       </div>
       <br/>

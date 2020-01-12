@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Wallpaper from '../images/background.svg'
 import Paper from "@material-ui/core/Paper";
+import { BASE_URL } from "../config";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,6 +44,7 @@ export default function ComplexGrid() {
 
   return (
     <div className={"home"}>
+      <iframe src={`${BASE_URL}/home`} />
       </div>
   );
 }

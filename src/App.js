@@ -156,9 +156,8 @@ export default function App() {
 
 function Home() {
   return (
-    <div>
-      <h2>Home</h2>
-      <Link to="/admin">Admin</Link>
+    <div className='home-iframe'>
+      <iframe frameBorder={0} style = {{ width: '100%', height: '100%' }} src={`${BASE_URL}/home`} />
     </div>
   );
 }

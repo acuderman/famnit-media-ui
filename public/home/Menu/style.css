@@ -1,0 +1,128 @@
+body {
+	padding: 0;
+	margin: 0;
+	background-image: url(famnitbg.png);
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.menu{
+	margin: 0;
+	padding-top: 200px;
+	padding-left: 40px;
+}
+
+.menu ul{
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+
+.menu ul li{
+	
+	padding: 15px;
+	position: relative;
+	width: 200px;
+	vertical-align: middle;
+	background-color: #34495E;
+	border-right: 3px solid #BDC3C7;
+	border-top: 1px solid #BDC3C7;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.menu ul li:hover{
+	background-color: #4287f5;
+}
+
+.menu > ul > li {
+	border-right: 3px solid #BDC3C7;
+}
+
+.menu ul ul{
+	transition: all 0.3s;
+	opacity: 0;
+	border-left: 3px solid #BDC3C7;
+	position: absolute;
+	visibility: hidden;
+	left: 100%;
+	top: -2%;
+}
+
+.menu ul li:hover > ul{
+	opacity: 1;
+	visibility: visible;
+}
+
+.menu ul li a{
+	color: #fff;
+	text-decoration: none;
+}
+
+/*.menu > ul > li::after{
+	content: "+";
+	position: absolute;
+	margin-left: 10%;
+	color: #fff;
+	font-size: 15px;
+} */
+
+
+.container{
+	width: 90%;
+	margin: 0;
+}
+
+.navbar{
+	padding-bottom: 0;
+	width: 100%;
+	overflow: hidden;
+	height: 70px;
+	line-height: 70px;
+	background: #fff;
+	border-bottom: 2px solid black;
+}
+
+.logo{
+	width: 120px;
+	padding-top: 18px;
+	padding-left: 70px;
+	float: left;
+}
+
+.nmenu{
+	float: right;
+}
+
+.nmenu li{
+	float: left;
+	width: 120px;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+}
+
+.nmenu li a{
+	color: #000;
+	text-decoration: none;
+	font-family: calibri;
+	text-transform: uppercase;
+	display: block;
+}
+
+.nmenu li:hover{
+	background: lightblue;
+}
+
+.nmenu li a:hover{
+	background: #fff;
+}
+
+.video{
+	position: relative;
+	padding-left: 425px;
+	padding-bottom: 500px;
+}
