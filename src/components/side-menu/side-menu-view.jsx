@@ -38,7 +38,8 @@ const useStyles = makeStyles(theme => ({
   root2: {
     display: "flex",
     position: "absolute",
-    right: "15px"
+    right: "15px",
+    
   },
   root: {
     display: "flex"
@@ -246,7 +247,7 @@ function ResponsiveDrawer(props) {
             Famnit Tutorials
           </Typography>
 
-          <div className={classes.root2}>
+          <div className={'about-icon'}>
               <Button style={{ color: "white", borderColor: "white" }}>
                 ABOUT
               </Button>

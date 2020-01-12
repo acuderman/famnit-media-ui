@@ -69,7 +69,7 @@ export default function CenteredGrid( props) {
           <img
             className={classes.img}
             alt="img"
-            src="https://img.youtube.com/vi/3gxcIn8L__w/maxresdefault.jpg"
+            src={`https://img.youtube.com/vi/${elt.youtube_video_id}/maxresdefault.jpg`}
           />
           </Link>
           <Typography>

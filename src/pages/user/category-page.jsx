@@ -112,39 +112,6 @@ export default function ComplexGrid(props) {
       </Link>
     </Paper>
       })}
-
-
-      <Paper className={classes.paper}>
-        <Link to="/photoshop/image-size" className={classes.button}>
-          <Grid container spacing={2}>
-            <Grid item className={classes.image}>
-              <img className={classes.img} alt="img" src={resize} />
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography
-                    gutterBottom
-                    variant="subtitle1"
-                    className={classes.title}
-                  >
-                    Change the image size
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    gutterBottom
-                    className={classes.description}
-                  >
-                    Here you can learn how to change the image size in
-                    Photoshop. Changing the image site in Photoshop is eazy and
-                    very usefull. Lets learn it!
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Link>
-      </Paper>
     </div>
   );
 }
