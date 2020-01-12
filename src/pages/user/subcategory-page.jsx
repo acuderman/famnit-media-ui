@@ -38,7 +38,7 @@ export default function CenteredGrid( props) {
 
   React.useEffect(()=> {
     getCategoryIdFromSlug()
-  }, [])
+  }, [props])
 
   const getCategoryIdFromSlug = async () => {
     const response = await axios.get(`${API_BASE_URI}/categories/slug/${sub_category}`)

@@ -56,10 +56,11 @@ export default function ComplexGrid(props) {
   
   const [subCategories, setSubCategories] = React.useState([])
   const [categoryID, setCategoryId] = React.useState('')
+  const [force, setForce] = React.useState(0)
 
   React.useEffect(()=> {
     getCategoryIdFromSlug()
-  }, [])
+  }, [props])
 
   const getCategoryIdFromSlug = async () => {
     const response = await axios.get(`${API_BASE_URI}/categories/slug/${category}`)
@@ -80,7 +81,6 @@ export default function ComplexGrid(props) {
   return (
     <div className={classes.root}>
       {subCategories.map((sub, i) => {
-        console.log(sub)
       return <Paper key={i} className={classes.paper}>
       <Link to={`/${category}/${sub.slug}`} className={classes.button}>
         <Grid container spacing={2}>
