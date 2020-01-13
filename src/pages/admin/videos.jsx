@@ -4,9 +4,16 @@ import * as axios from 'axios'
 import { API_BASE_URI } from "../../config";
 import { getToken } from "../../helpers/get-token";
 import {Paper} from "@material-ui/core";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+
+const useStyles = makeStyles(theme => ({
+    toolbar: theme.mixins.toolbar,
+}));
 
 const VideosPage = props => {
-  const [videos, setVideos] = React.useState([])
+    const classes = useStyles();
+
+    const [videos, setVideos] = React.useState([])
 
   React.useEffect(() => {
     getVideos()
@@ -24,7 +31,9 @@ const VideosPage = props => {
 
   return (
     <div className={"page"}>
-    <div>
+        <div className={classes.toolbar} />
+
+        <div>
       <Paper  elevation="0" style={{backgroundColor:"#003366"}}>
       <h1
         style={{

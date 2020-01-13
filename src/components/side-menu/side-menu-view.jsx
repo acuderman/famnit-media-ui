@@ -70,7 +70,8 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    height: "90vh"
+    height: "calc(100% - 24px)",
+    display: 'block',
   },
   listRoot: {
     width: "100%",
@@ -286,7 +287,7 @@ function ResponsiveDrawer(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+
         {props.children}
       </main>
     </div>

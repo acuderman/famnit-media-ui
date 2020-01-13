@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
     width:500,
     marginLeft:'auto',
     marginRight:'auto'
-    
-  }
+  },
+   toolbar: theme.mixins.toolbar,
 }));
 
 const AdminPage = props => {
@@ -85,6 +85,8 @@ const AdminPage = props => {
 
 
   return (
+      <div>
+    <div className={classes.toolbar} />
     <Paper className={classes.paper} variant="outlined">
       <div
         style={{
@@ -150,6 +152,7 @@ const AdminPage = props => {
         </div>
       </div>
     </Paper>
+      </div>
   );
 };
 

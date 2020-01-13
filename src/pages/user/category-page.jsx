@@ -45,7 +45,8 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     textDecoration: "none",
     color: "black"
-  }
+  },
+  toolbar: theme.mixins.toolbar,
 }));
 
 export default function ComplexGrid(props) {
@@ -80,6 +81,7 @@ export default function ComplexGrid(props) {
 
   return (
     <div className={classes.root}>
+      <div className={classes.toolbar} />
       {subCategories.map((sub, i) => {
       return <Paper key={i} className={classes.paper}>
       <Link to={`/${category}/${sub.slug}`} className={classes.button}>

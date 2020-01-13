@@ -13,9 +13,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {Paper} from "@material-ui/core";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
+const useStyles = makeStyles(theme => ({
+    toolbar: theme.mixins.toolbar,
+}));
 const EditVideoPage = (props) => {
   const { id } = props.match.params;
+    const classes = useStyles();
 
     const [inProgress, setInProgress] = React.useState(false);
     const [title, setTitle] = React.useState('')
@@ -114,6 +119,7 @@ const EditVideoPage = (props) => {
 
   return (
     <div className={'page'}>
+        <div className={classes.toolbar} />
       <Paper elevation="0" style={{backgroundColor:"#003366"}}>
       <h1 style={{
           marginBottom: "15px",

@@ -13,9 +13,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
+const useStyles = makeStyles(theme => ({
+    toolbar: theme.mixins.toolbar,
+}));
 
 const CategoriesDeletePage = props => {
+
+    const classes = useStyles();
   const [submittedError, setSubmittedError] = React.useState(false);
   const [submitProgress, setSubmitInProgress] = React.useState(false);
   const [snackbarSuccessText, setSnackbarSuccessText] = React.useState("");
@@ -88,7 +94,9 @@ const CategoriesDeletePage = props => {
 
   return (
     <div className={"page"}>
-      <Paper  elevation="0" style={{background: "#003366"}}>
+        <div className={classes.toolbar} />
+
+        <Paper  elevation="0" style={{background: "#003366"}}>
       <h1
         style={{
           marginBottom: "15px",

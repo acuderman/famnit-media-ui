@@ -158,34 +158,6 @@ function Home() {
   return (
     <div className='home-iframe'>
       <iframe frameBorder={0} style = {{ width: '100%', height: '100%' }} src={`${BASE_URL}/home`} />
-    </div>
+      </div>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-const SubCategory = props => {
-  const { sub_category, category } = props.match.params;
-
-  return (
-    <h2>
-      Category:{category}, Sub category: {sub_category}
-    </h2>
-  );
-};
-
-const Category = props => {
-  const { category } = props.match.params;
-
-  return <h2>Category:{category}</h2>;
-};
-
-function Admin() {
-  return <h2>Admin</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }

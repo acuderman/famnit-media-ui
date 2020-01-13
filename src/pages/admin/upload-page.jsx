@@ -14,9 +14,17 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import "../fonts.css";
 import {Paper} from "@material-ui/core";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+
+
+const useStyles = makeStyles(theme => ({
+    toolbar: theme.mixins.toolbar,
+}));
 
 const UploadPage = props => {
-  const [inProgress, setInProgress] = React.useState(false);
+    const classes = useStyles();
+
+    const [inProgress, setInProgress] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [youtube_video_id, setYoutubeVideoID] = React.useState("");
@@ -103,7 +111,8 @@ const UploadPage = props => {
 
   return (
     <div className={"page"}>
-      <Paper elevation="0" style={{backgroundColor:"#003366"}}>
+        <div className={classes.toolbar} />
+        <Paper elevation="0" style={{backgroundColor:"#003366"}}>
       <h1
         style={{
           marginBottom: "15px",

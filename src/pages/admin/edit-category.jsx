@@ -13,9 +13,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+
+const useStyles = makeStyles(theme => ({
+    toolbar: theme.mixins.toolbar,
+}));
 
 const CategoriesEditAdminPage = props => {
-  const [submittedError, setSubmittedError] = React.useState(false);
+        const classes = useStyles();
+        const [submittedError, setSubmittedError] = React.useState(false);
   const [submitProgress, setSubmitInProgress] = React.useState(false);
   const [snackbarSuccessText, setSnackbarSuccessText] = React.useState("");
   const [snackbarErrorText, setSnackbarErrorText] = React.useState("");
@@ -120,6 +126,7 @@ const CategoriesEditAdminPage = props => {
 
   return (
     <div className={"page"}>
+        <div className={classes.toolbar} />
       <Paper elevation="0" style={{background: "#003366"}}>
       <h1
         style={{

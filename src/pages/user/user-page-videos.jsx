@@ -6,15 +6,16 @@ import { GOOGLE_API_BASE_URL, GOOGLE_AUTH_API_BASE_URL , YOUTUBE_API_KEY, API_BA
 import * as axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import * as Cookies from 'js-cookie';
-import SendIcon from '@material-ui/icons/Send';
-import {
-    Link
-} from 'react-router-dom';
-import { Button, Paper } from "@material-ui/core";
-import { dark } from "@material-ui/core/styles/createPalette";
+import {Button, makeStyles, Paper} from "@material-ui/core";
+
+
+const useStyles = makeStyles(theme => ({
+    toolbar: theme.mixins.toolbar,
+}));
 
 
 const UserVideosPage = props => {
+    const classes = useStyles();
   const { category , video_id, sub_category } = props.match.params;
   const [comments, setComments] = React.useState([]);
   const [access_token, setAccessToken] = React.useState(undefined)
@@ -143,6 +144,7 @@ const changeUrl = (path) => {
 
   return (
     <div className="watch-videos">
+        <div className={classes.toolbar} />
       <div style={{ paddingLeft: '15%', paddingRight: '15%'}}>
       <div class="videoWrapper">
         <iframe

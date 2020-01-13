@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) =>
       maxWidth: "100%",
       maxHeight: "80%",
       marginBottom:'10px'
-    }
+    },
+    toolbar: theme.mixins.toolbar,
   })
 );
 
@@ -62,6 +63,7 @@ export default function CenteredGrid( props) {
 
   return (
     <div className={classes.root}>
+      <div className={classes.toolbar} />
       <Grid container spacing={3}>
       {videos.map((elt) => {
         return <Grid item xs={12} sm={6} md={6} lg={3} style={{textAlign:'center'}}>
