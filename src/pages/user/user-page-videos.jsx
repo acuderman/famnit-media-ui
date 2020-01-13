@@ -148,7 +148,7 @@ const changeUrl = (path) => {
       <div style={{ paddingLeft: '15%', paddingRight: '15%'}}>
       <div class="videoWrapper">
         <iframe
-          src={`http://www.youtube.com/embed/${video_id}`}
+          src={`https://www.youtube.com/embed/${video_id}`}
           frameborder="0"
           allowfullscreen='allowfullscreen'
         ></iframe>
