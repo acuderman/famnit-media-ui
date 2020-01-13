@@ -3,14 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import layers from "../../images/layers.png";
 import { Link } from "react-router-dom";
-import resize from "../../images/resize.png";
 import * as axios from 'axios'
 import { API_BASE_URI } from "../../config";
-
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,13 +46,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function ComplexGrid(props) {
   const classes = useStyles();
-
   const { category } = props.match.params;
   
-  
   const [subCategories, setSubCategories] = React.useState([])
-  const [categoryID, setCategoryId] = React.useState('')
-  const [force, setForce] = React.useState(0)
+  const [, setCategoryId] = React.useState('')
 
   React.useEffect(()=> {
     getCategoryIdFromSlug()

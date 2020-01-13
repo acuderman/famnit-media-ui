@@ -1,9 +1,6 @@
 import React from "react";
-
-import { DropzoneArea } from "material-ui-dropzone";
 import TextField from "../../components/textfield";
 import SubmitButton from "../../components/submit-button";
-import ErrorBox from "../../components/error-box";
 import * as axios from "axios";
 import { API_BASE_URI, BASE_URL } from "../../config";
 import { getToken } from "../../helpers/get-token";
@@ -24,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 const UploadPage = props => {
     const classes = useStyles();
 
-    const [inProgress, setInProgress] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [youtube_video_id, setYoutubeVideoID] = React.useState("");

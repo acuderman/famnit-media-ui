@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import * as Cookie from "js-cookie";
 import ResponsiveDrawer from "./components/side-menu";
 import CategoryPage from "./pages/user/category-page";
 import SubCategoryPage from "./pages/user/subcategory-page";
-import HomePage from "./pages/home-page";
 import AdminPage from "./pages/admin/admin-page";
 import UploadPage from "./pages/admin/upload-page";
 import VideosPage from "./pages/admin/videos";
@@ -13,7 +12,7 @@ import CategoriesAddAdminPage from "./pages/admin/add-category";
 import CategoriesEditAdminPage from "./pages/admin/edit-category";
 import EditVideoPage from "./pages/admin/edit-video";
 import UserVideosPage from "./pages/user/user-page-videos";
-import { getAccessToken, verifyAccessToken } from "./helpers/authentication";
+import { verifyAccessToken } from "./helpers/authentication";
 import { BASE_URL } from "./config";
 
 export default function App() {

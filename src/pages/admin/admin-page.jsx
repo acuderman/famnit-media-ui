@@ -3,17 +3,10 @@ import * as axios from 'axios';
 
 import "../fonts.css";
 import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
   makeStyles,
-  IconButton,
   TextField,
   Paper
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import { fontFamily, maxHeight } from "@material-ui/system";
 import { API_BASE_URI, BASE_URL } from "../../config";
 import * as Cookies from 'js-cookie'
 import SubmitButton from "../../components/submit-button";
@@ -39,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper:{
     flexGrow:1,
-    width:500,
+    maxWidth:500,
     marginLeft:'auto',
     marginRight:'auto'
   },

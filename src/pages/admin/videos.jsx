@@ -2,7 +2,6 @@ import React from "react";
 import VideoTile from '../../components/videos-tile/index'
 import * as axios from 'axios'
 import { API_BASE_URI } from "../../config";
-import { getToken } from "../../helpers/get-token";
 import {Paper} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 

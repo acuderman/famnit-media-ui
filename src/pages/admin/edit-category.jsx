@@ -3,12 +3,10 @@ import React from "react";
 import TextField from "../../components/textfield";
 import SubmitButton from "../../components/submit-button";
 import * as axios from "axios";
-import { API_BASE_URI, BASE_URL } from "../../config";
+import { API_BASE_URI } from "../../config";
 import { getToken } from "../../helpers/get-token";
 import CustomizedSnackbars from "../../components/snackbar/index";
-import { Button, Paper } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Paper } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -20,8 +18,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CategoriesEditAdminPage = props => {
-        const classes = useStyles();
-        const [submittedError, setSubmittedError] = React.useState(false);
+  const classes = useStyles();
+
+  const [submittedError, setSubmittedError] = React.useState(false);
   const [submitProgress, setSubmitInProgress] = React.useState(false);
   const [snackbarSuccessText, setSnackbarSuccessText] = React.useState("");
   const [snackbarErrorText, setSnackbarErrorText] = React.useState("");
@@ -33,7 +32,6 @@ const CategoriesEditAdminPage = props => {
   const [icon_url, setIconUrl] = React.useState("");
   const [parentCategory, setParentCategory] = React.useState("");
 
-  const [forceUpdate, setForceUpdate] = React.useState(0);
 
   const [categoriesOptions, setCategoriesOptions] = React.useState([]);
 
@@ -195,7 +193,7 @@ const CategoriesEditAdminPage = props => {
         <Select
           labelId="dropdown"
           id="dropdown"
-          labelWidth={70}
+          labelWidth={120}
           value={parentCategory}
           onChange={e => setParentCategory(e.target.value)}
         >

@@ -3,12 +3,10 @@ import React from "react";
 import TextField from "../../components/textfield";
 import SubmitButton from "../../components/submit-button";
 import * as axios from "axios";
-import { API_BASE_URI, BASE_URL } from "../../config";
+import { API_BASE_URI } from "../../config";
 import { getToken } from "../../helpers/get-token";
 import CustomizedSnackbars from "../../components/snackbar/index";
-import { Button, Paper } from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Paper } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -32,8 +30,6 @@ const CategoriesAddAdminPage = props => {
   const [slug, setSlug] = React.useState("");
   const [parentCategory, setParentCategory] = React.useState("");
   const [icon_url, setIconUrl] = React.useState("");
-
-  const [forceUpdate, setForceUpdate] = React.useState(0);
 
   const [categoriesOptions, setCategoriesOptions] = React.useState([]);
 
@@ -172,7 +168,7 @@ const CategoriesAddAdminPage = props => {
         <Select
           labelId="dropdown"
           id="dropdown"
-          labelWidth={70}
+          labelWidth={120}
           error={false}
           onChange={e => setParentCategory(e.target.value)}
         >

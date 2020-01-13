@@ -7,12 +7,12 @@ import * as axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import * as Cookies from 'js-cookie';
 import {Button, makeStyles, Paper} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
 }));
-
 
 const UserVideosPage = props => {
     const classes = useStyles();
@@ -29,7 +29,7 @@ const UserVideosPage = props => {
 
 
   const [videos, setVideos] = React.useState([])
-  const [subCategoryId, setSubCategoryId] = React.useState('')
+  const [, setSubCategoryId] = React.useState('')
   const [currentVideoIndex, setCurrentVideoIndex] = React.useState(0)
 
   const getComments = async () => {
@@ -43,7 +43,7 @@ const UserVideosPage = props => {
     getComments();
     verifyAccessToken()
     getCategoryIdFromSlug()
-  }, []);
+  }, [props]);
 
   const getCategoryIdFromSlug = async () => {
     const response = await axios.get(`${API_BASE_URI}/categories/slug/${sub_category}`)
@@ -59,7 +59,7 @@ const UserVideosPage = props => {
   const getVideos = async (id) => {
     const response = await axios.get(`${API_BASE_URI}/categories/${id}/videos`)
     const data = response.data;
-    setVideos(response.data)
+    setVideos(data)
 
     const currentVideoInd = data.findIndex((elt) => { return elt.youtube_video_id === video_id})
     setTitle(response.data[currentVideoInd].title)
@@ -125,22 +125,18 @@ const UserVideosPage = props => {
     setSuccessSnackbar('')
     setErrorSnackbar('')
 }
-
-const changeUrl = (path) => {
-  window.location.href=`${BASE_URL}/${path}`
-}
   
   const commentInput = access_token !== undefined 
   ? <div className='post-comment'><TextField variant="outlined" value={comment} style={{ width: '90%' }} onChange={onCommentChange} id="standard-basic" label="Add a comment" /> <span  onClick={onSubmit} className='send-icon'><Button variant="contained" color="primary" style={{width:"9%",height:"55px",marginTop:"1px"}}>Send</Button></span> </div>
   : <div className='comment'> <h4> if you want to comment, you need to log in </h4> <GoogleAuth onSignInResponse={onAuthResponse} /> </div>
 
   const previousButton = currentVideoIndex !== 0 
-    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex - 1].youtube_video_id}`)} ><Button style={{width:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Previous video</Button></div>
-    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}><Button style={{width:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Go back to categories</Button></div>
+      ? <Link className={'link-no-style'} to={`/${category}/${sub_category}/${videos[currentVideoIndex - 1].youtube_video_id}`}><div className='video-navigation-buttons' ><Button style={{maxWidth:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Previous video</Button></div></Link>
+      : <Link className={'link-no-style'} to={`/${category}/${sub_category}`}><div className='video-navigation-buttons'><Button style={{maxWidth:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Go back to categories</Button></div></Link>
 
     const nextButton = currentVideoIndex < videos.length -1
-    ? <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}/${videos[currentVideoIndex + 1].youtube_video_id}`)} ><Button style={{width:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight > Next video</Button></div>
-    : <div className='video-navigation-buttons' onClick={() => changeUrl(`${category}/${sub_category}`)}><Button style={{width:"150px",height:"60px"}} variant="contained" fullWidth fullHeight> Go back to categories</Button></div>
+        ? <Link className={'link-no-style'} to={`/${category}/${sub_category}/${videos[currentVideoIndex + 1].youtube_video_id}`}><div className='video-navigation-buttons' ><Button style={{maxWidth:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight > Next video</Button></div></Link>
+        : <Link className={'link-no-style'} to={`/${category}/${sub_category}`}><div className='video-navigation-buttons'><Button style={{maxWidth:"150px",height:"60px"}} variant="contained" fullWidth fullHeight> Go back to categories</Button></div></Link>
 
   return (
     <div className="watch-videos">
