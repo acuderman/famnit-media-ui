@@ -64,6 +64,8 @@
 }
 
 .post-comment {
+  display: flex;
+  flex-flow: row;
   width: 100%;
 }
 
@@ -71,6 +73,7 @@
   cursor: pointer;
   position: relative;
   height: 56px;
+  margin-left: 15px;
 }
 
 .home {
