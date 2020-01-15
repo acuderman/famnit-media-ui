@@ -85,9 +85,9 @@
 
 
 .about-icon {
+  display: none;
   position: absolute;
   right: 15px;
-  display: block;
 }
 
 @media screen and (max-width: 400px) {
