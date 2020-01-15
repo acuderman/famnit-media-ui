@@ -130,7 +130,7 @@ const UserVideosPage = props => {
   ? <div className='post-comment'><TextField variant="outlined" value={comment} style={{ width: '90%' }} onChange={onCommentChange} id="standard-basic" label="Add a comment" /> <span  onClick={onSubmit} className='send-icon'><Button variant="contained" color="primary" style={{width:"9%",height:"55px",marginTop:"1px"}}>Send</Button></span> </div>
   : <div className='comment'> <h4> if you want to comment, you need to log in </h4> <GoogleAuth onSignInResponse={onAuthResponse} /> </div>
 
-  const previousButton = currentVideoIndex !== 0 
+  const previousButton = currentVideoIndex !== 0
       ? <Link className={'link-no-style'} to={`/${category}/${sub_category}/${videos[currentVideoIndex - 1].youtube_video_id}`}><div className='video-navigation-buttons' ><Button style={{maxWidth:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Previous video</Button></div></Link>
       : <Link className={'link-no-style'} to={`/${category}/${sub_category}`}><div className='video-navigation-buttons'><Button style={{maxWidth:"150px",height:"60px"}} variant="contained"  fullWidth fullHeight> Go back to categories</Button></div></Link>
 
@@ -141,7 +141,7 @@ const UserVideosPage = props => {
   return (
     <div className="watch-videos">
         <div className={classes.toolbar} />
-      <div style={{ paddingLeft: '15%', paddingRight: '15%'}}>
+      <div className={'video-padding'}>
       <div class="videoWrapper">
         <iframe
           src={`https://www.youtube.com/embed/${video_id}`}
@@ -159,7 +159,7 @@ const UserVideosPage = props => {
       <br/>
       <div className='nav-buttons'>
       {previousButton}
-      {nextButton}
+      {videos.length > 1 && nextButton}
         </div>
         <div className={'split-40px'}> </div>
       <div className={'split-80px'}> </div>

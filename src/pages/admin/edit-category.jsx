@@ -108,10 +108,11 @@ const CategoriesEditAdminPage = props => {
       const data = response.data;
       setDescripton(data.description !== null ? data.description : "");
       setName(data.name !== null ? data.name : "");
-      setParentCategory(
-        data.parentCategory !== null ? data.parentCategory : ""
+        setParentCategory(
+        data.parent_category_id !== null ? data.parent_category_id : ""
       );
       setSlug(data.slug !== null ? data.slug : "");
+      setIconUrl(data.icon_url !== null ? data.icon_url : '')
     } catch (e) {
       //err
     }

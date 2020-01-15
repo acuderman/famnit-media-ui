@@ -129,10 +129,10 @@ const EditVideoPage = (props) => {
       </Paper>
         <TextField error={submittedError && title.length === 0 } value={title} className='title' onChange={onTitleChange} id="outlined-basic" label="Title" fullWidth variant="outlined" />
         <TextField error={submittedError && description.length === 0 } value={description} id="description" onChange={onDescriptionChange} multiline rows={6} label="Description" fullWidth variant="outlined" />
-        <div className='split-20px'> </div>
         <TextField error={submittedError && youtube_video_id.length === 0 } value={youtube_video_id} id="description" onChange={(e) => setYoutubeVideoID(e.target.value) } label="youtube video id" fullWidth variant="outlined" />
 
 
+        <div className='split-20px'> </div>
         <FormControl variant="outlined" >
         <InputLabel id="dropdown">
           Category

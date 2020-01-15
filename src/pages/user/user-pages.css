@@ -95,3 +95,15 @@
     display: none;
   }
 }
+
+.video-padding {
+  padding-left: 13%;
+  padding-right: 13%;
+}
+
+@media screen and (max-width: 700px) {
+  .video-padding {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
