@@ -1,3 +1,14 @@
+
+
+### Push to github
+git push github <branch name>
+
+### environment variables
+
+REACT_APP_YOUTUBE_API_KEY=YT_API_KEY
+REACT_APP_SITE_URL=http://localhost:3000
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
